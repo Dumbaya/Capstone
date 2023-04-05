@@ -90,9 +90,3 @@
     transform: rotate(360deg);
   }
 }
-
-@media screen and (max-width: 768px) {
-  .main > div {
-    flex-basis: calc(50% - 10px);
-  }
-}
