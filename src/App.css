@@ -90,3 +90,16 @@
     transform: rotate(360deg);
   }
 }
+/*
+@media screen and (max-width: 768px) { //모바일 버전 설정
+  .main > div {
+    flex-basis: 100%;
+  }
+}
+
+@media screen and (min-width: 769px) { //pc버전 설정
+  .main > div {
+    flex-basis: calc(50% - 10px);
+  }
+}
+*/
