@@ -2,6 +2,60 @@
   text-align: center;
 }
 
+.main{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  height: 100vh;
+  flex-direction: column;
+  min-width:320px;
+}
+
+.main > div {
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  min-width:320px;
+}
+
+.logo{
+  background-color: gray;
+  height: 45%;
+}
+
+.logo-img{
+  background-color: pink;
+  height: 100%;
+  width: 100%;
+  max-width: 400px;
+  max-height: 200px;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  max-width:100px;
+  max-height:100px;
+  margin: 20px;
+  padding: 10%;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -34,5 +88,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main > div {
+    flex-basis: calc(50% - 10px);
   }
 }
