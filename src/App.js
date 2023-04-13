@@ -24,9 +24,9 @@ function Btns(){
 
   return (
     <div className="btns">
-      <button className="btn" onClick={test}>버튼1</button>
-      <button className="btn">버튼2</button>
-      <button className="btn">버튼3</button>
+      <button className="btn" onClick={test}>로그인, 냉장고</button>
+      <button className="btn">레시피</button>
+      <button className="btn">게시판</button>
     </div>
   );
 }
