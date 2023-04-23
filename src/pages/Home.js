@@ -11,7 +11,6 @@ function Home() {
             <Btns></Btns>
         </div>
     )
-    
 }
 
 function Btns() {
