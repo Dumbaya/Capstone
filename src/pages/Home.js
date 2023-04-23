@@ -3,14 +3,15 @@ import React from "react";
 function Home() {
     return (
         <div className="Home">
-            <div className="logo">
-                <div className="logo-img">
+            <div className="main">
+                <div className="main-img">
                     로고
                 </div>
             </div>
             <Btns></Btns>
         </div>
     )
+    
 }
 
 function Btns() {

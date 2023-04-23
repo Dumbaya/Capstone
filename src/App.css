@@ -19,12 +19,12 @@
   min-width:320px;
 }
 
-.logo{
+.main{
   background-color: gray;
   height: 45%;
 }
 
-.logo-img{
+.main-img{
   background-color: pink;
   height: 100%;
   width: 100%;
