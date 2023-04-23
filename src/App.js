@@ -8,14 +8,7 @@ import List from "./pages/List";
 function App() {
   return (
     <div className="App">
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/List">List</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/List" element={<List/>}></Route>
-      </Routes>
+      <Home></Home>
     </div>
   );
 }
