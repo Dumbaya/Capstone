@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.main{
+.Home{
   display: flex;
   flex-wrap: wrap;
   text-align: center;
@@ -11,7 +11,7 @@
   min-width:320px;
 }
 
-.main > div {
+.Home > div {
   display: flex;
   margin: 10px;
   justify-content: center;
@@ -92,13 +92,13 @@
 }
 /*
 @media screen and (max-width: 768px) { //모바일 버전 설정
-  .main > div {
+  .Home > div {
     flex-basis: 100%;
   }
 }
 
 @media screen and (min-width: 769px) { //pc버전 설정
-  .main > div {
+  .Home > div {
     flex-basis: calc(50% - 10px);
   }
 }
