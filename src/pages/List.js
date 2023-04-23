@@ -1,16 +1,11 @@
 import React from "react";
 
-function Home() {
+function List() {
     return (
-        <div className="Home">
-            <div className="logo">
-                <div className="logo-img">
-                    로고
-                </div>
-            </div>
-            <Btns></Btns>
+        <div className="List">
+            
         </div>
     )
 }
 
-export default Home;
+export default List;
