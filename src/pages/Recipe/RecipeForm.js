@@ -1,4 +1,5 @@
 import React from "react";
+import "../../css/Recipe.css";
 
 function Recipe() {
     return (

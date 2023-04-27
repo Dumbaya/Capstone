@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {Routes, Route, useNavigate} from "react-router-dom";
+import "../../css/Login.css";
 
-import SignupForm from "./Login/SignupForm";
+import SignupForm from "./SignupForm";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
@@ -32,10 +33,10 @@ function LoginForm() {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <button type="submit" onClick={ () => sessionStorage.setItem("username", username)}>로그인</button>
-      <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
+      <button type="submit" onClick={() => handleButtonClick("/SignupForm")}>회원가입</button>
 
       <Routes>
-        <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
+        <Route path="/SignupForm" element={<SignupForm />}></Route>
       </Routes>
     </form>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../css/Board.css";
+import "../../css/Board.css";
 import {Routes, Route, useNavigate} from "react-router-dom";
 
-import BoardWriterForm from "./Board/BoardWriteForm";
+import BoardWriterForm from "./BoardWriteForm";
 
 function Board() {
     const [tab, setTab] = useState("free");
@@ -36,9 +36,9 @@ function Board() {
                     검색창
                 </div>
                 <div class="board-write">
-                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
+                    <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
                     <Routes>
-                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                        <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
                 <table class="freeboard-table">
@@ -59,9 +59,9 @@ function Board() {
                     검색창
                 </div>
                 <div class="board-write">
-                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
+                    <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
                     <Routes>
-                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                        <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
                 <table class="qaboard-table">

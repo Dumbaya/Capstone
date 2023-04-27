@@ -3,9 +3,9 @@ import {Routes, Route, useNavigate} from "react-router-dom";
 import "../css/Home.css";
 
 //import List from "./List";
-import Recipe from "./Recipe";
-import Board from "./Board";
-import LoginForm from "./LoginForm";
+import Recipe from "./Recipe/RecipeForm";
+import Board from "./Board/BoardForm";
+import LoginForm from "./Login/LoginForm";
 
 function Home() {
 

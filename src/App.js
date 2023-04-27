@@ -2,12 +2,12 @@ import React from "react";
 import {Routes, Route} from "react-router-dom";
 
 import './App.css';
-import Home from "./pages/Home";
-import List from "./pages/List";
-import Recipe from "./pages/Recipe";
-import Board from "./pages/Board";
+import Home from "./pages/Homeform";
+import List from "./pages/ListForm";
+import Recipe from "./pages/Recipe/RecipeForm";
+import Board from "./pages/Board/BoardForm";
 import BoardWriteForm from "./pages/Board/BoardWriteForm";
-import LoginForm from "./pages/LoginForm";
+import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
 
 
@@ -18,9 +18,9 @@ function App() {
         <Route path="/" element={<Home />} />       
         <Route path="/List" element={<List />} />
         <Route path="/Recipe" element={<Recipe />} />
-        <Route path="/Board" element={<Board />} />
+        <Route path="/Board/Board" element={<Board />} />
         <Route path="/Board/BoardWriteForm" element={<BoardWriteForm />} />
-        <Route path="/LoginForm" element={<LoginForm />} />
+        <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/Login/SignupForm" element={<SignupForm />} />
       </Routes>
     </div>
