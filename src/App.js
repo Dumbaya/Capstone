@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route, Link} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 
 import './App.css';
 import Home from "./pages/Home";
@@ -7,6 +7,7 @@ import LoginForm from "./pages/LoginForm";
 import List from "./pages/List";
 import Recipe from "./pages/Recipe";
 import Board from "./pages/Board";
+import SignupForm from "./pages/Login/SignupForm";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/List" element={<List />} />
         <Route path="/Recipe" element={<Recipe />} />
         <Route path="/Board" element={<Board />} />
+        <Route path="/Login/SignupForm" element={<SignupForm />} />
       </Routes>
     </div>
   );

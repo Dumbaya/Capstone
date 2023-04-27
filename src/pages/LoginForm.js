@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import {Routes, Route, useNavigate} from "react-router-dom";
+
+import SignupForm from "./Login/SignupForm";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
@@ -12,6 +15,12 @@ function LoginForm() {
     setPassword("");
   };
 
+  const navigate=useNavigate();
+
+  function handleButtonClick(path){
+    navigate(path);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -22,7 +31,12 @@ function LoginForm() {
         Password:
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button type="submit">Login</button>
+      <button type="submit" onClick={ () => sessionStorage.setItem("username", username)}>Login</button>
+      <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>sing up</button>
+
+      <Routes>
+        <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
+      </Routes>
     </form>
   );
 }
