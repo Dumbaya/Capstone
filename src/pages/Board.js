@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import "../css/Board.css";
+import {Routes, Route, useNavigate} from "react-router-dom";
+
+import BoardWriterForm from "./Board/BoardWriteForm";
 
 function Board() {
     const [tab, setTab] = useState("free");
 
+    const navigate=useNavigate();
+
+    function handleButtonClick(path){
+        navigate(path);
+    }
+
     return (
+        
         <div className="board-container">
             <div className="tab-container">
                 <button
@@ -26,7 +36,10 @@ function Board() {
                     검색창
                 </div>
                 <div class="board-write">
-                    글쓰기
+                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
+                    <Routes>
+                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                    </Routes>
                 </div>
                 <table class="freeboard-table">
                     <thead>
@@ -46,22 +59,25 @@ function Board() {
                     검색창
                 </div>
                 <div class="board-write">
-                    글쓰기
+                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
+                    <Routes>
+                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                    </Routes>
                 </div>
                 <table class="qaboard-table">
-                        <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
             )}
-        </div>
+        </div>    
   );
 }
 

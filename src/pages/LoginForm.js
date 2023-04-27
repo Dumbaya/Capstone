@@ -31,8 +31,8 @@ function LoginForm() {
         Password:
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button type="submit" onClick={ () => sessionStorage.setItem("username", username)}>Login</button>
-      <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>sing up</button>
+      <button type="submit" onClick={ () => sessionStorage.setItem("username", username)}>로그인</button>
+      <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
 
       <Routes>
         <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
