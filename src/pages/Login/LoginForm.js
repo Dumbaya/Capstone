@@ -23,7 +23,10 @@ function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="loginform">
+      <div className="login-logo">
+                로고
+      </div>
       <label>
         Username:
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

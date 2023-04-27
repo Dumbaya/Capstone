@@ -5,6 +5,16 @@ import {Routes, Route, useNavigate} from "react-router-dom";
 import BoardWriterForm from "./BoardWriteForm";
 
 function Board() {
+    const [query, setQuery] = useState("");
+
+    const handleQueryChange = (event) => {
+        setQuery(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    };
+
     const [tab, setTab] = useState("free");
 
     const navigate=useNavigate();
@@ -16,7 +26,7 @@ function Board() {
     return (
         
         <div className="board-container">
-            <div className="Board-logo">로고</div>
+            <div className="board-logo">로고</div>
             <div className="tab-container">
                 <button
                     className={`tab-btn ${tab === "free" ? "active" : ""}`}
@@ -33,16 +43,19 @@ function Board() {
             </div>
             {tab === "free" ? (
             <div className="board free-board">
-                <div class="board-search">
-                    검색창
+                <div className="board-search" onSubmit={handleSubmit}>
+                    <label>
+                        <input type="text" value={query} onChange={handleQueryChange} />
+                    </label>
+                    <button type="submit">검색</button>
                 </div>
-                <div class="board-write">
+                <div className="board-write">
                     <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
                     <Routes>
                         <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
-                <table class="freeboard-table">
+                <table className="freeboard-table">
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -56,16 +69,16 @@ function Board() {
             </div>
             ) : (
             <div className="board qna-board">
-                <div class="board-search">
+                <div className="board-search">
                     검색창
                 </div>
-                <div class="board-write">
+                <div className="board-write">
                     <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
                     <Routes>
                         <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
-                <table class="qaboard-table">
+                <table className="qaboard-table">
                     <thead>
                         <tr>
                             <th>번호</th>

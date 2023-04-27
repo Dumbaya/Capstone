@@ -25,7 +25,7 @@ function SignupForm() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Username:
+        Id:
         <input type="text" value={username} onChange={handleUsernameChange} />
       </label>
       <label>

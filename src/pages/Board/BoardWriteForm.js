@@ -19,16 +19,16 @@ function BoardWriteForm() {
     };
 
   return (
-    <form onSubmit={handleSubmit} class="BoardWirte">
-        <label class="BoardWrite-title">
+    <form onSubmit={handleSubmit} className="boardWirte">
+        <label className="boardWrite-title">
             제목:
             <input type="text" value={title} onChange={handleTitleChange} />
         </label>
-        <label class="BoardWrite-body">
+        <label className="boardWrite-body">
             내용:
             <textarea value={content} onChange={handleContentChange} />
         </label>
-        <button type="submit" class="BoardWrite-ok">작성완료</button>
+        <button type="submit" className="boardWrite-ok">작성완료</button>
     </form>
   );
 }
