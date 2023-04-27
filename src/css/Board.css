@@ -1,0 +1,67 @@
+.board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .tab-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tab-btn {
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    padding: 15px 30px;
+    background-color: #f2f2f2;
+    color: #333;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-btn:hover {
+    background-color: #d9d9d9;
+  }
+  
+  .active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .board {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .free-board {
+    justify-content: center;
+  }
+  
+  .qna-board {
+    justify-content: center;
+  }
+
+  .board-search{
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  .board-write{
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  .freeboard-table{
+    display: flex;
+    justify-content: center;
+  }
+
+  .qaboard-table{
+    display: flex;
+    justify-content: center;
+  }
