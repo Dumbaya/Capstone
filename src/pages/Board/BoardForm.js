@@ -66,6 +66,7 @@ function Board() {
                         </tr>
                     </thead>
                 </table>
+                <hr></hr>
             </div>
             ) : (
             <div className="board qna-board">
@@ -92,6 +93,7 @@ function Board() {
                         </tr>
                     </thead>
                 </table>
+                <hr></hr>
             </div>
             )}
         </div>    
