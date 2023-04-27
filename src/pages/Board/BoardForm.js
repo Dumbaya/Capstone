@@ -69,8 +69,11 @@ function Board() {
             </div>
             ) : (
             <div className="board qna-board">
-                <div className="board-search">
-                    검색창
+                <div className="board-search" onSubmit={handleSubmit}>
+                    <label>
+                        <input type="text" value={query} onChange={handleQueryChange} />
+                    </label>
+                    <button type="submit">검색</button>
                 </div>
                 <div className="board-write">
                     <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
