@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import "../../css/BoardWrite.css";
 
-function BoardWriterForm() {
+function BoardWriteForm() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
@@ -18,18 +19,18 @@ function BoardWriterForm() {
     };
 
   return (
-    <form onSubmit={handleSubmit}>
-        <label>
+    <form onSubmit={handleSubmit} class="BoardWirte">
+        <label class="BoardWrite-title">
             제목:
             <input type="text" value={title} onChange={handleTitleChange} />
         </label>
-        <label>
-        내용:
+        <label class="BoardWrite-body">
+            내용:
             <textarea value={content} onChange={handleContentChange} />
         </label>
-        <button type="submit">작성완료</button>
+        <button type="submit" class="BoardWrite-ok">작성완료</button>
     </form>
   );
 }
 
-export default BoardWriterForm;
+export default BoardWriteForm;

@@ -16,6 +16,7 @@ function Board() {
     return (
         
         <div className="board-container">
+            <div className="Board-logo">로고</div>
             <div className="tab-container">
                 <button
                     className={`tab-btn ${tab === "free" ? "active" : ""}`}

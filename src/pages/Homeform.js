@@ -23,14 +23,14 @@ function Home() {
                 </div>
             </div>
             <nav>
-                <button className="btn" onClick={() => handleButtonClick("/LoginForm")}>로그인,냉장고</button>
-                <button className="btn" onClick={() => handleButtonClick("/Recipe")}>레시피</button>
-                <button className="btn" onClick={() => handleButtonClick("/Board")}>게시판</button>
+                <button className="btn" onClick={() => handleButtonClick("/Login/LoginForm")}>로그인,냉장고</button>
+                <button className="btn" onClick={() => handleButtonClick("/Recipe/RecipeForm")}>레시피</button>
+                <button className="btn" onClick={() => handleButtonClick("/Board/BoardForm")}>게시판</button>
             </nav>
             <Routes>
-                <Route path="/LoginForm" element={<LoginForm />}></Route>
-                <Route path="/Recipe" element={<Recipe />}></Route>
-                <Route path="/Board" element={<Board />}></Route>
+                <Route path="/Login/LoginForm" element={<LoginForm />}></Route>
+                <Route path="/Recipe/RecipeForm" element={<Recipe />}></Route>
+                <Route path="/Board/BoardForm" element={<Board />}></Route>
             </Routes>
         </div>
     )

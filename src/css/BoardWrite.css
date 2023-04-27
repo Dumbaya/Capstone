@@ -1,0 +1,21 @@
+.BoardWirte{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.BoardWrite-title{
+    display: block;
+    margin-bottom: 1em;
+}
+
+.BoardWrite-body{
+    display: block;
+    margin-bottom: 1em;
+}
+
+.BoardWrite-ok{
+    margin-bottom: 1em;
+}

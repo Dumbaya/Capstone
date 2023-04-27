@@ -4,7 +4,9 @@ import "../../css/Recipe.css";
 function Recipe() {
     return (
         <div className="Recipe">
-            레시피
+            <div className="Recipe-logo">
+                로고
+            </div>
         </div>
     )
 }

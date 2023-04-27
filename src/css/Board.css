@@ -5,8 +5,12 @@
     justify-content: center;
     margin-top: 50px;
   }
+.Board-logo{
+  margin-bottom: 30px;
+}
   
   .tab-container {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
   }

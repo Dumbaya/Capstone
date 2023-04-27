@@ -40,7 +40,7 @@ function SignupForm() {
           onChange={handlePasswordChange}
         />
       </label>
-      <button type="submit">Sign up</button>
+      <button type="submit">회원가입</button>
     </form>
   );
 }
