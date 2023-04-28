@@ -28,3 +28,37 @@
     cursor: pointer;
   }
   
+  .Test {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+
+.modal-btn-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  height: 80%;
+  width: 700px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.modal-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+
+  border: 2px solid #000000;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}

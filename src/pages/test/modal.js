@@ -30,12 +30,22 @@ function Test() {
   };
 
   return (
-    <div>
+    <div className="Test">
       <button onClick={openModal}>모달 열기</button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>안녕하세요!</h2>
         <p>모달 내용입니다.</p>
       </Modal>
+
+      <div className="modal-btn-container">
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+      </div>
     </div>
   );
 }
