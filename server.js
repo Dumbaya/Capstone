@@ -14,9 +14,9 @@ app.use(session({
 
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'gur991029!',
-  database: 'capstone'
+  user: 'hoseo1234',
+  password: 'hoseo12!',
+  database: 'hoseo1234'
 });
 
 app.post('/login', async (req, res) => {
@@ -24,7 +24,7 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const connection = await pool.getConnection();
     const [rows] = await connection.execute(
-      'SELECT * FROM users WHERE username = ? AND password = ?',
+      'SELECT * FROM categories WHERE name = ? AND id = ?',
       [username, password]
     );
     connection.release();
