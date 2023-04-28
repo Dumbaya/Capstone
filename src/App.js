@@ -9,6 +9,7 @@ import Board from "./pages/Board/BoardForm";
 import BoardWriteForm from "./pages/Board/BoardWriteForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
+import Test from "./pages/test/modal";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/BoardWriteForm" element={<BoardWriteForm />} />
         <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/SignupForm" element={<SignupForm />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </div>
   );
