@@ -13,23 +13,26 @@ function Recipe() {
     };
 
     return (
-        <form className="recipe">
-            <div className="recipe-logo">
-                로고
-            </div>
-            <div className="recipe-search" onSubmit={handleSubmit}>
-                <label>
-                    <input type="text" value={query} onChange={handleQueryChange} />
-                </label>
-                <button type="submit">검색</button>
-            </div>
-            <div className="recipe-category">
-                카테고리
-            </div>
-            <div className="recipe-body">
-                레시피 내용
-            </div>
-        </form>
+        <div className="recipe_container">
+            <form className="recipe">
+                <div className="recipe-logo">
+                    로고
+                </div>
+                <div className="recipe-search" onSubmit={handleSubmit}>
+                    <label>
+                        <input type="text" value={query} onChange={handleQueryChange} />
+                    </label>
+                    <button type="submit">검색</button>
+                </div>
+                <div className="recipe-category">
+                    카테고리
+                </div>
+                <div className="recipe-body">
+                    레시피 내용
+                </div>
+            </form>
+        </div>
+
     )
 }
 
