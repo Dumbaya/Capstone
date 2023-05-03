@@ -7,8 +7,8 @@ function Modal(props) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-background">
-      <div className="modal-content">
+    <div className="modal-background" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {children}
         <button className="modal-close" onClick={onClose}>
           닫기
@@ -20,31 +20,41 @@ function Modal(props) {
 
 function Test() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isListOpen, setIsListOpen] = useState(0);
 
-  const openModal = () => {
+  const subOpenModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsListOpen(0);
   };
+  const subOpenList = (num) => {
+    setIsListOpen(num);
+  };
+  const openModal=(num)=>{
+    subOpenModal();
+    subOpenList(num);
+  }
+
 
   return (
     <div className="Test">
-      <button onClick={openModal}>모달 열기</button>
+      <button onClick={()=>openModal(1)}>모달 열기</button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2>안녕하세요!</h2>
-        <p>모달 내용입니다.</p>
+        <p>{isListOpen}</p>
       </Modal>
 
       <div className="modal-btn-container">
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
-        <button className="modal-btn" onClick={openModal}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(1)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(2)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(3)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(4)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(5)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(6)}>모달 열기</button>
+        <button className="modal-btn" onClick={()=>openModal(7)}>모달 열기</button>
       </div>
     </div>
   );
