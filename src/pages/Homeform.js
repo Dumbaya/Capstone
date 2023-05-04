@@ -8,16 +8,25 @@ import Board from "./Board/BoardForm";
 import LoginForm from "./Login/LoginForm";
 
 function Home() {
-    const loginState = localStorage.getItem('loginState');
-    const username = localStorage.getItem('username');
+    const loginState = sessionStorage.getItem('loginState');
+    const username = sessionStorage.getItem('username');
     const navigate=useNavigate();
 
     function handleButtonClick(path){
         navigate(path);
     }
 
+    const handleLogout = () =>{
+        sessionStorage.clear();
+        alert("로그아웃 되었습니다.");
+        window.location.href = 'http://localhost:3000/'; 
+    }
+
     return (
         <div className="Home">
+            <div>
+                <button onClick={handleLogout}>로그아웃</button>
+            </div>
             <div className="main">
                 <div className="main-img">
                     로고

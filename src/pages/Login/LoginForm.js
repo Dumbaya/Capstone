@@ -22,8 +22,8 @@ const Login = () => {
         password: password
       });
       if (response.data.success) {
-        localStorage.setItem('username',username);
-        localStorage.setItem('loginState', true);
+        sessionStorage.setItem('username',username);
+        sessionStorage.setItem('loginState', true);
         alert('로그인 성공');
         window.location.href = 'http://localhost:3000/';
       } else {
