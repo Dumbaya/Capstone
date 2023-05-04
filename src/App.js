@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom";
 
 import './App.css';
 import Home from "./pages/Homeform";
-import List from "./pages/ListForm";
+import List from "./pages/List/ListForm";
 import Recipe from "./pages/Recipe/RecipeForm";
 import Board from "./pages/Board/BoardForm";
 import BoardWriteForm from "./pages/Board/BoardWriteForm";
@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />       
-        <Route path="/List" element={<List />} />
+        <Route path="/List/ListForm" element={<List />} />
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
         <Route path="/Board/BoardForm" element={<Board />} />
         <Route path="/Board/BoardWriteForm" element={<BoardWriteForm />} />
