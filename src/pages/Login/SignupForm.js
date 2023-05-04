@@ -1,48 +1,48 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function SignupForm() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function SignUpForm() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post('http://localhost:3002/signup', {
+        username: username,
+        password: password,
+        email: email
+      });
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // TODO: Send data to server
+      if (response.status === 200) {
+        alert('회원가입이 완료되었습니다.');
+        window.location.href = 'http://localhost:3000/Login/LoginForm';
+      } else {
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('오류로 인해 회원가입에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <label>
-        Id:
-        <input type="text" value={username} onChange={handleUsernameChange} />
-      </label>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={handleEmailChange} />
+        Username:
+        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
       </label>
       <label>
         Password:
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
-      <button type="submit">회원가입</button>
+      <label>
+        Email:
+        <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+      </label>
+      <button type="button" onClick={handleSignup}>회원가입</button>
     </form>
   );
 }
 
-export default SignupForm;
+export default SignUpForm;

@@ -20,9 +20,9 @@ function App() {
         <Route path="/List" element={<List />} />
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
         <Route path="/Board/BoardForm" element={<Board />} />
-        <Route path="/BoardWriteForm" element={<BoardWriteForm />} />
+        <Route path="/Board/BoardWriteForm" element={<BoardWriteForm />} />
         <Route path="/Login/LoginForm" element={<LoginForm />} />
-        <Route path="/SignupForm" element={<SignupForm />} />
+        <Route path="/Login/SignupForm" element={<SignupForm />} />
         <Route path="/Test" element={<Test />} />
       </Routes>
     </div>

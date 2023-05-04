@@ -50,9 +50,9 @@ function Board() {
                     <button type="submit">검색</button>
                 </div>
                 <div className="board-write">
-                    <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
+                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
                     <Routes>
-                        <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
                 <table className="freeboard-table">
@@ -77,9 +77,9 @@ function Board() {
                     <button type="submit">검색</button>
                 </div>
                 <div className="board-write">
-                    <button type="submit" onClick={() => handleButtonClick("/BoardWriteForm")}>글쓰기</button>
+                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
                     <Routes>
-                        <Route path="/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
                 <table className="qaboard-table">

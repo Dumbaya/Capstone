@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Routes, Route, useNavigate} from "react-router-dom";
+
+import SignupForm from "./SignupForm"; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate=useNavigate();
+
+  function handleButtonClick(path){
+      navigate(path);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +47,12 @@ const Login = () => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit">로그인</button>
+      </form>
+      <form>
+        <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
+        <Routes>
+              <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
+          </Routes>
       </form>
     </div>
   );
