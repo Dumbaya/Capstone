@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./modal.css";
+import "./test.css";
 
 function Modal(props) {
   const { isOpen, onClose, children } = props;
@@ -37,8 +37,7 @@ function Test() {
     subOpenModal();
     subOpenList(num);
   }
-
-
+  
   return (
     <div className="Test">
       <button onClick={()=>openModal(1)}>모달 열기</button>

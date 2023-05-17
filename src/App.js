@@ -9,7 +9,7 @@ import Board from "./pages/Board/BoardForm";
 import BoardWriteForm from "./pages/Board/BoardWriteForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
-import Test from "./pages/test/modal";
+import Test from "./pages/test/test";
 
 
 function App() {
