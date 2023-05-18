@@ -56,7 +56,7 @@ app.post('/signup', async (req, res) => {
     const [rows1] = await connection.execute(
       'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
     );
-    const id = rows1[0].id +1;
+    const id = rows1[0].id + 1;
 
     if (rows.length > 0) {
       // 이미 사용 중인 경우
@@ -76,6 +76,19 @@ app.post('/signup', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/categories', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT name FROM categories');
+    connection.release();
+    const names = rows.map((row) => row.name);
+    res.json(names);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
