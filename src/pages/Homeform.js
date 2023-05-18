@@ -25,7 +25,8 @@ function Home() {
     return (
         <div className="Home">
             <div>
-                <button onClick={handleLogout}>로그아웃</button>
+                { !loginState || !username ? <button onClick={() => handleButtonClick("/Login/LoginForm")}>로그인</button> 
+                : <button onClick={handleLogout}>로그아웃</button> }              
             </div>
             <div className="main">
                 <div className="main-img">
@@ -33,8 +34,7 @@ function Home() {
                 </div>
             </div>
             <nav>
-                { !loginState || !username ? <button className="btn" onClick={() => handleButtonClick("/Login/LoginForm")}>로그인,냉장고</button> 
-                : <button className="btn" onClick={() => handleButtonClick("/List/ListForm")}>로그인,냉장고</button> }
+                <button className="btn" onClick={() => handleButtonClick("/List/ListForm")}>냉장고</button>
                 <button className="btn" onClick={() => handleButtonClick("/Recipe/RecipeForm")}>레시피</button>
                 <button className="btn" onClick={() => handleButtonClick("/Board/BoardForm")}>게시판</button>
             </nav>

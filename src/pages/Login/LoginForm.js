@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
 
 import SignupForm from "./SignupForm"; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    setAccessToken(response.accessToken);
+  }
 
   const navigate=useNavigate();
 
@@ -51,8 +58,19 @@ const Login = () => {
       <form>
         <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
         <Routes>
-              <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
-          </Routes>
+            <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
+        </Routes>
+          {accessToken ? (
+          <p>로그인 성공!</p>
+          ) : (
+          <GoogleLogin
+            clientId="774959781817-j2df940qcjig49lseldpi3shq2171d5a.apps.googleusercontent.com"
+            buttonText="Google 계정으로 로그인"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+          )}
       </form>
     </div>
   );
