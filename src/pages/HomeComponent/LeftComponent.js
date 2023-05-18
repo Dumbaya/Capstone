@@ -11,7 +11,7 @@ function LeftComponent() {
                 <>
                     <div className="main">
                         <div className="main-img">
-                            로고
+                            <img className="logo" alt = "LOGO" src="img/LOGO.jpg" />
                         </div>
                     </div>
                     <div>
@@ -22,7 +22,7 @@ function LeftComponent() {
                 <>
                     <div className="main">
                         <div className="main-img">
-                            로고
+                            <img className="logo" alt = "LOGO" src="img/LOGO.jpg" />
                         </div>
                     </div>
                     <div className="main-refri">냉장고 간단한 정보</div>
