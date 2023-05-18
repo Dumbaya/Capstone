@@ -1,4 +1,4 @@
-.Home {
+.LeftHome {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -7,7 +7,7 @@
     min-width: 320px;
   }
   
-  .Home > div {
+  .LeftHome > div {
     display: flex;
     margin: 10px;
     justify-content: center;

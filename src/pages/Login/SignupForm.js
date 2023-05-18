@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "../../css/Signup.css";
 
 function SignUpForm() {
   const [username, setUsername] = useState('');
@@ -27,21 +28,31 @@ function SignUpForm() {
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <label>
-        Email:
-        <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSignup}>회원가입</button>
-    </form>
+    <div className='SignupForm'>
+      <div className='Signup'>
+        <div className='Username'>
+          <label>
+            Username:&nbsp;
+            <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+          </label>
+        </div>
+        <div className='PassWord'>
+          <label>
+            Password:&nbsp;
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          </label>
+        </div>
+        <div className='Email'>
+          <label>
+            Email:&nbsp;
+            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+          </label>
+        </div>
+        <div className='RegisterButton'>
+          <button type="button" onClick={handleSignup}>회원가입</button>
+        </div> 
+      </div>
+    </div>
   );
 }
 

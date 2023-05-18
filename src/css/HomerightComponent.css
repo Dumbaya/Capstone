@@ -1,17 +1,9 @@
-.Home {
+.RightHome {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     height: 100vh;
     flex-direction: column;
-    min-width: 320px;
-  }
-  
-  .Home > div {
-    display: flex;
-    margin: 10px;
-    justify-content: center;
-    align-items: center;
     min-width: 320px;
   }
   
@@ -23,9 +15,17 @@
     min-width: 320px;
   }
 
-  .LoginButton{
-    align-items: right;
-    float: right;
+  .LoginButtonFormBe{
+    margin-top:300px;
+  }
+
+  .LoginButtonFormAf{
+    margin-bottom: 200px;
+  }
+
+  .LoginButtonFormAf{
+    text-align: right;
+    margin-right: 50px;
   }
   
   .btn {
