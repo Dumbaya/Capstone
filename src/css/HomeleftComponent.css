@@ -5,6 +5,7 @@
     height: 100vh;
     flex-direction: column;
     min-width: 320px;
+    background-color: black;
   }
   
   .LeftHome > div {
