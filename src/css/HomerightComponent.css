@@ -5,7 +5,7 @@
     height: 100vh;
     flex-direction: column;
     min-width: 320px;
-    background-color: baf1e5;
+    background-color: baf1e5 50%;
   }
   
   .MainButtons {
