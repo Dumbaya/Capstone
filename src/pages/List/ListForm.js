@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "../../css/List.css";
 
 function Modal(props) {
@@ -22,7 +23,7 @@ function List() {
   // 모달 오픈을 위한 유즈스테이트
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(0);
-  
+
   const date = new Date();
   // 현재 연도 가져오기
   const getCurrentYear = () => {
@@ -41,8 +42,18 @@ function List() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
   const [selectedDay, setSelectedDay] = useState(getCurrentDate());
   //카테고리선택을 위한 유즈스테이트
-  const [selectedKategorie, setSelectedKategorie] = useState('카테고리');
-  
+  const [selectedCategorie, setSelectedCategorie] = useState('카테고리');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3002/categories')
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   // 년도 선택 이벤트 핸들러
   const handleYearChange = (e) => {
@@ -59,11 +70,11 @@ function List() {
     setSelectedDay(e.target.value);
   };
   // 카테고리 선택 이벤트 핸들러
-  const handleKategorieChange = (e) => {
-    setSelectedKategorie(e.target.value);
+  const handleCategorieChange = (e) => {
+    setSelectedCategorie(e.target.value);
   };
 
-  
+
 
   // 년도 선택 옵션 생성
   const renderYearOptions = () => {
@@ -102,16 +113,16 @@ function List() {
   };
 
   // 카테고리 옵션 생성 (미완)
-  const renderKategorieOptions = () => {
-    const options = [];
-
-    options.push(<option key={32} value="카테고리">카테고리</option>)
-
-    for (let day = 1; day <= 31; day++) {//여기 수정해서 카테고리 불러오게해야함
-      options.push(<option key={day} value={day}>{day}</option>);
-    }
-
-    return options;
+  const renderCategorieOptions = () => {
+    return categories.map((category, index) => (
+      <option key={index} value={category}>{category}</option>
+    ));
+  };
+  // 폼데이터 제출 시 처리 작업
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼 데이터 처리 작업 수행
+    console.log();
   };
 
   //
@@ -131,28 +142,65 @@ function List() {
     subOpenList(num);
   }
 
+
+
   return (
     <div className="List">
       <button onClick={() => openModal(1)}>모달 열기</button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>안녕하세요!</h2>
-        <div>
-          카테고리
-          <select value={selectedKategorie} onChange={handleKategorieChange}>
-            {renderKategorieOptions()}
-          </select>
-        </div>
-        <div>
-          <select value={selectedYear} onChange={handleYearChange}>
-            {renderYearOptions()}
-          </select>년&nbsp;
-          <select value={selectedMonth} onChange={handleMonthChange}>
-            {renderMonthOptions()}
-          </select>월&nbsp;
-          <select value={selectedDay} onChange={handleDayChange}>
-            {renderDayOptions()}
-          </select>일&nbsp;
-        </div>
+        <h3>상태 : 미입력</h3>
+        <form className="input-form" onSubmit={handleSubmit}>
+          <table>
+            <tbody>
+              <tr>
+                <td>마지막수정일</td>
+                <td>년. 월. 일</td>
+              </tr>
+              <tr>
+                <td>이름 : </td>
+                <td><input></input></td>
+              </tr>
+              <tr>
+                <td>소유자 : </td>
+                <td><input></input></td>
+              </tr>
+              <tr>
+                <td>카테고리</td>
+                <td><select value={selectedCategorie} onChange={handleCategorieChange}>
+                  {renderCategorieOptions()}
+                </select></td>
+              </tr>
+              <tr>
+                <td>보관일</td>
+                <td><select value={selectedYear} onChange={handleYearChange}>
+                  {renderYearOptions()}
+                </select>년&nbsp;
+                  <select value={selectedMonth} onChange={handleMonthChange}>
+                    {renderMonthOptions()}
+                  </select>월&nbsp;
+                  <select value={selectedDay} onChange={handleDayChange}>
+                    {renderDayOptions()}
+                  </select>일</td>
+              </tr>
+              <tr>
+                <td>유통기한</td>
+                <td><select value={selectedYear} onChange={handleYearChange}>
+                  {renderYearOptions()}
+                </select>년&nbsp;
+                  <select value={selectedMonth} onChange={handleMonthChange}>
+                    {renderMonthOptions()}
+                  </select>월&nbsp;
+                  <select value={selectedDay} onChange={handleDayChange}>
+                    {renderDayOptions()}
+                  </select>일</td>
+              </tr>
+              <tr>
+                <td>사진</td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit">저장</button>
+        </form>
         <p>{isListOpen}</p>
       </Modal>
 
