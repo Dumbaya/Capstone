@@ -1,0 +1,47 @@
+.Home {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    flex-direction: column;
+    min-width: 320px;
+  }
+  
+  .Home > div {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+  }
+  
+  .MainButtons {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+  }
+
+  .LoginButton{
+    align-items: right;
+    float: right;
+  }
+  
+  .btn {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 20px;
+    padding: 10%;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn:hover {
+    background-color: #3e8e41;
+  }
+  

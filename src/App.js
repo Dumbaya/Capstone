@@ -10,6 +10,8 @@ import BoardWriteForm from "./pages/Board/BoardWriteForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
 import Test from "./pages/test/test";
+import Left from "./pages/HomeComponent/LeftComponent"
+import Right from "./pages/HomeComponent/RightComponent"
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/Login/SignupForm" element={<SignupForm />} />
         <Route path="/Test" element={<Test />} />
+        <Route path="/HomeComponent/left" element={<Left />} />
+        <Route path="/HomeComponent/right" element={<Right />} />
       </Routes>
     </div>
   );

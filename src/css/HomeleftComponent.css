@@ -1,0 +1,57 @@
+.Home {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    flex-direction: column;
+    min-width: 320px;
+  }
+  
+  .Home > div {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+  }
+  
+  .main {
+    background-color: gray;
+    height: 35%;
+  }
+  
+  .main-img {
+    background-color: pink;
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
+    max-height: 150px;
+  }
+  
+  .main-introduce{
+    background-color: lime;
+    height:100px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-refri{
+    background-color: rgb(101, 122, 190);
+    height:100px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-recipe{
+    background-color: rebeccapurple;
+    height:100px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-board{
+    background-color: lightcoral;
+    height:100px;
+    justify-content: center;
+    align-items: center;
+  }

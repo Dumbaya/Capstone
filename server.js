@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const passport = require('passport');
 
 const app = express();
 app.use(express.json());

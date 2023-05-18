@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin} from 'react-google-login';
 
 import SignupForm from "./SignupForm"; 
 
@@ -13,6 +13,11 @@ const Login = () => {
   const responseGoogle = (response) => {
     console.log(response);
     setAccessToken(response.accessToken);
+    if(response.accessToken){
+      sessionStorage.setItem('loginState', true);
+      window.location.href = 'http://localhost:3000/';
+      alert('성공');
+    }
   }
 
   const navigate=useNavigate();
@@ -60,7 +65,7 @@ const Login = () => {
         <Routes>
             <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
         </Routes>
-          {accessToken ? (
+        {accessToken ? (
           <p>로그인 성공!</p>
           ) : (
           <GoogleLogin
@@ -70,7 +75,7 @@ const Login = () => {
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
           />
-          )}
+          )} 
       </form>
     </div>
   );
