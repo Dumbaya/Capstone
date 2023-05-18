@@ -22,11 +22,27 @@ function List() {
   // 모달 오픈을 위한 유즈스테이트
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(0);
-  //날짜선택을 위한 유즈스테이트
-  const [selectedYear, setSelectedYear] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [selectedDay, setSelectedDay] = useState('');
+  
   const date = new Date();
+  // 현재 연도 가져오기
+  const getCurrentYear = () => {
+    return date.getFullYear();
+  };
+  // 현재 월 가져오기
+  const getCurrentMonth = () => {
+    return date.getMonth() + 1;
+  };
+  // 현재 일 가져오기
+  const getCurrentDate = () => {
+    return date.getDate();
+  };
+  //날짜선택을 위한 유즈스테이트
+  const [selectedYear, setSelectedYear] = useState(getCurrentYear());
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
+  const [selectedDay, setSelectedDay] = useState(getCurrentDate());
+  //카테고리선택을 위한 유즈스테이트
+  const [selectedKategorie, setSelectedKategorie] = useState('카테고리');
+  
 
   // 년도 선택 이벤트 핸들러
   const handleYearChange = (e) => {
@@ -42,19 +58,12 @@ function List() {
   const handleDayChange = (e) => {
     setSelectedDay(e.target.value);
   };
+  // 카테고리 선택 이벤트 핸들러
+  const handleKategorieChange = (e) => {
+    setSelectedKategorie(e.target.value);
+  };
 
-  // 현재 연도 가져오기
-  const getCurrentYear = () => {
-    return date.getFullYear();
-  };
-  // 현재 월 가져오기
-  const getCurrentMonth = () => {
-    return date.getMonth() + 1;
-  };
-  // 현재 일 가져오기
-  const getCurrentDate = () => {
-    return date.getDate();
-  };
+  
 
   // 년도 선택 옵션 생성
   const renderYearOptions = () => {
@@ -93,8 +102,10 @@ function List() {
   };
 
   // 카테고리 옵션 생성 (미완)
-  const renderKategorie = () => {
+  const renderKategorieOptions = () => {
     const options = [];
+
+    options.push(<option key={32} value="카테고리">카테고리</option>)
 
     for (let day = 1; day <= 31; day++) {//여기 수정해서 카테고리 불러오게해야함
       options.push(<option key={day} value={day}>{day}</option>);
@@ -127,22 +138,18 @@ function List() {
         <h2>안녕하세요!</h2>
         <div>
           카테고리
-          <select value={selectedYear} onChange={handleYearChange}>
-            <option value="">카테고리</option>
-            {renderYearOptions()}
+          <select value={selectedKategorie} onChange={handleKategorieChange}>
+            {renderKategorieOptions()}
           </select>
         </div>
         <div>
           <select value={selectedYear} onChange={handleYearChange}>
-            <option value="">{getCurrentYear()}</option>
             {renderYearOptions()}
           </select>년&nbsp;
           <select value={selectedMonth} onChange={handleMonthChange}>
-            <option value="">{getCurrentMonth()}</option>
             {renderMonthOptions()}
           </select>월&nbsp;
           <select value={selectedDay} onChange={handleDayChange}>
-            <option value="">{getCurrentDate()}</option>
             {renderDayOptions()}
           </select>일&nbsp;
         </div>
