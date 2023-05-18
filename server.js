@@ -21,6 +21,7 @@ const pool = mysql.createPool({
   database: 'hoseo1234'
 });
 
+//로그인
 app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -42,6 +43,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+//회원가입
 app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
 
@@ -79,6 +81,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+//냉장고 리스트에서 카테고리들 불러오는 용도
 app.get('/categories', async (req, res) => {
   try {
     const connection = await pool.getConnection();
@@ -89,6 +92,45 @@ app.get('/categories', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//냉장고 리스트 입력값을 저장하기
+app.post('/user_food_resources', async (req, res) => {
+  const { username, password, email } = req.body;
+
+  try {
+    // username이 이미 사용 중인지 확인
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM users WHERE username = ?',
+      [username]
+    );
+
+    const [rows1] = await connection.execute(
+      'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
+    );
+    const id = rows1[0].id + 1;
+
+    if (rows.length > 0) {
+      // 이미 사용 중인 경우
+      res.status(400).json({ message: 'Username already in use' });
+      return;
+    }
+    // 새로운 계정 생성
+
+    await connection.execute(
+      'INSERT INTO user_food_resources (user_id, food_resource_id, state, registration_date, last_process_date, expiration_date, size, image, user_board_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+      id,
+      username,
+      password,
+      email
+    ]);
+
+    res.json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

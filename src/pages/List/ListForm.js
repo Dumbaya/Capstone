@@ -74,6 +74,8 @@ function List() {
     setSelectedCategorie(e.target.value);
   };
 
+  
+
 
 
   // 년도 선택 옵션 생성
@@ -118,11 +120,38 @@ function List() {
       <option key={index} value={category}>{category}</option>
     ));
   };
+
   // 폼데이터 제출 시 처리 작업
-  const handleSubmit = (e) => {
+  const [user_id, setUsername] = useState('');
+  const [food_resource_id, setPassword] = useState('');
+  const [state, setState] = useState('');
+  const [registration_date, setRegistration_date] = useState('');
+  const [last_process_date, setLast_process_date] = useState('');
+  const [expiration_date, setExpiration_date] = useState('');
+  const [size, setSize] = useState('');
+  const [image, setImage] = useState('');
+  const [user_board_number, setUser_board_number] = useState('');
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 폼 데이터 처리 작업 수행
-    console.log();
+
+    try {
+      const response = await axios.post('http://localhost:3002/user_food_resources', {
+        username: username,
+        password: password,
+        email: email
+      });
+
+      // 서버 응답 처리
+      if (response.ok) {
+        console.log('폼 제출 성공');
+      } else {
+        console.error('폼 제출 실패');
+      }
+    } catch (error) {
+      console.error('폼 제출 오류', error);
+    }
   };
 
   //
@@ -158,6 +187,7 @@ function List() {
               </tr>
               <tr>
                 <td>이름 : </td>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
                 <td><input></input></td>
               </tr>
               <tr>
@@ -199,7 +229,7 @@ function List() {
               </tr>
             </tbody>
           </table>
-          <button type="submit">저장</button>
+          <button type="button" onClick={handleSubmit}>저장</button>
         </form>
         <p>{isListOpen}</p>
       </Modal>
