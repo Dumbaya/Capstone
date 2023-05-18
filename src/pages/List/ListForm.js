@@ -123,7 +123,7 @@ function List() {
 
   // 폼데이터 제출 시 처리 작업
   const [user_id, setUsername] = useState('');
-  const [food_resource_id, setPassword] = useState('');
+  const [food_resource_id, setFood_resource_id] = useState('');
   const [state, setState] = useState('');
   const [registration_date, setRegistration_date] = useState('');
   const [last_process_date, setLast_process_date] = useState('');
@@ -138,9 +138,15 @@ function List() {
 
     try {
       const response = await axios.post('http://localhost:3002/user_food_resources', {
-        username: username,
-        password: password,
-        email: email
+        user_id: user_id,
+        food_resource_id: food_resource_id,
+        state: state,
+        registration_date: registration_date,
+        last_process_date: last_process_date,
+        expiration_date: expiration_date,
+        size: size,
+        image: image,
+        user_board_number: user_board_number
       });
 
       // 서버 응답 처리
@@ -187,7 +193,7 @@ function List() {
               </tr>
               <tr>
                 <td>이름 : </td>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                
                 <td><input></input></td>
               </tr>
               <tr>
