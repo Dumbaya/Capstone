@@ -1,0 +1,3 @@
+터미널을 2개 킨다.
+1번 터미널에 npm start
+2번 터미널에 node server.js
