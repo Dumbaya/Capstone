@@ -1,8 +1,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
-import { GoogleLogin} from 'react-google-login';
-import GoogleLoginButton from './GoogleLoginButton';
+import { GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import "../../css/Login.css";
 
 import SignupForm from "./SignupForm"; 
@@ -10,18 +9,6 @@ import SignupForm from "./SignupForm";
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [accessToken, setAccessToken] = useState('');
-
-  const handleGoogleLoginSuccess = (response) => {
-    // Google 로그인 성공 시 처리할 로직을 작성하세요.
-    alert('Google 로그인 성공:');
-    // 세션 유지 등의 로직을 추가하세요.
-  };
-
-  const handleGoogleLoginFailure = (error) => {
-    // Google 로그인 실패 시 처리할 로직을 작성하세요.
-    alert('Google 로그인 실패:');
-  };
 
   const navigate=useNavigate();
 
@@ -72,14 +59,20 @@ const Login = () => {
             </Routes>
           </div>
           <div className='google-login'>
-            {accessToken ? (
-              <p>로그인 성공!</p>
-              ) : (
-                <GoogleLoginButton
-                onSuccess={handleGoogleLoginSuccess}
-                onFailure={handleGoogleLoginFailure}
-              />
-            )} 
+            <React.Fragment>
+              <GoogleOAuthProvider clientId='774959781817-j2df940qcjig49lseldpi3shq2171d5a.apps.googleusercontent.com'>
+                <GoogleLogin
+                buttonText="Google Login"
+                onSuccess={(credentialResponse)=>{
+                  window.location.href = 'http://localhost:3000/';
+                  sessionStorage.setItem('loginState', true);
+                }}
+                onError={()=>{
+                  alert('실패')
+                }}
+                />
+              </GoogleOAuthProvider>
+            </React.Fragment>
           </div>
         </form>
       </div>
