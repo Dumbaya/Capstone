@@ -21,6 +21,7 @@
     "passport-google-oauth20": "^2.0.0",
     "promise": "^8.3.0",
     "react": "^18.2.0",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-paypal-express-checkout": "^1.0.5",

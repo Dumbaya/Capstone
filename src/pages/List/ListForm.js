@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "../../css/List.css";
 
 function Modal(props) {
@@ -65,27 +67,11 @@ function List() {
 
 function Submit(props) {
 
-  const date = new Date();
-  // 현재 연도 가져오기
-  const getCurrentYear = () => {
-    return date.getFullYear();
-  };
-  // 현재 월 가져오기
-  const getCurrentMonth = () => {
-    return date.getMonth() + 1;
-  };
-  // 현재 일 가져오기
-  const getCurrentDate = () => {
-    return date.getDate();
-  };
   //날짜선택을 위한 유즈스테이트
-  const [selectedYear, setSelectedYear] = useState(getCurrentYear());
-  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
-  const [selectedDay, setSelectedDay] = useState(getCurrentDate());
-  //유통기한을 위한 유즈스테이트
-  const [expirationYear, setExpirationYear] = useState(getCurrentYear());
-  const [expirationMonth, setExpirationMonth] = useState(getCurrentMonth());
-  const [expirationDay, setExpirationDay] = useState(getCurrentDate());
+  const [startDate, setStartDate] = useState(new Date());
+  const [expirationDate, setExpirationDate] = useState(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 10));
+  const [today, setToday] = useState(new Date());
+
   //카테고리선택을 위한 유즈스테이트
   const [selectedCategorie, setSelectedCategorie] = useState('카테고리');
   const [categories, setCategories] = useState([]);
@@ -100,63 +86,10 @@ function Submit(props) {
       });
   }, []);
 
-  // 년도 선택 이벤트 핸들러
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-  };
 
-  // 월 선택 이벤트 핸들러
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
-
-  // 일 선택 이벤트 핸들러
-  const handleDayChange = (e) => {
-    setSelectedDay(e.target.value);
-  };
   // 카테고리 선택 이벤트 핸들러
   const handleCategorieChange = (e) => {
     setSelectedCategorie(e.target.value);
-  };
-
-
-
-
-
-  // 년도 선택 옵션 생성
-  const renderYearOptions = () => {
-    const currentYear = getCurrentYear();
-    const startYear = currentYear - 20; // 20년 전부터 선택 가능하도록 설정
-    const endYear = currentYear;
-    const options = [];
-
-    for (let year = startYear; year <= endYear; year++) {
-      options.push(<option key={year} value={year}>{year}</option>);
-    }
-
-    return options;
-  };
-
-  // 월 선택 옵션 생성
-  const renderMonthOptions = () => {
-    const options = [];
-
-    for (let month = 1; month <= 12; month++) {
-      options.push(<option key={month} value={month}>{month}</option>);
-    }
-
-    return options;
-  };
-
-  // 일 선택 옵션 생성
-  const renderDayOptions = () => {
-    const options = [];
-
-    for (let day = 1; day <= 31; day++) {
-      options.push(<option key={day} value={day}>{day}</option>);
-    }
-
-    return options;
   };
 
   // 카테고리 옵션 생성 (미완)
@@ -169,22 +102,12 @@ function Submit(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const year = selectedYear.toString();
-    const month = selectedMonth.toString().padStart(2, '0');
-    const day = selectedDay.toString().padStart(2, '0');
-    const selectedDate = `${year}-${month}-${day}`;
 
     const formData = new FormData(e.target);
-    
 
-    const e_year = expirationYear.toString();
-    const e_month = expirationMonth.toString().padStart(2, '0');
-    const e_day = expirationDay.toString().padStart(2, '0');
-    const e_selectedDate = `${e_year}-${e_month}-${e_day}`;
-
-    formData.append('registration_date', selectedDate);
-    formData.append('expiration_date', e_selectedDate);
-    formData.append('last_process_date', "00-00-00");
+    formData.append('registration_date', startDate.toISOString().slice(0, 19).replace('T', ' '));
+    formData.append('expiration_date', expirationDate.toISOString().slice(0, 19).replace('T', ' '));
+    formData.append('last_process_date', today.toISOString().slice(0, 19).replace('T', ' '));
     formData.append('size', "미정");
     formData.append('image', "미정");
     formData.append('user_board_number', props.num);
@@ -245,59 +168,21 @@ function Submit(props) {
           <tr>
             <td>보관일</td>
             <td>
-              <select
-                name="selectedYear"
-                value={selectedYear}
-                onChange={handleYearChange}
-              >
-                {renderYearOptions()}
-              </select>
-              년&nbsp;
-              <select
-                name="selectedMonth"
-                value={selectedMonth}
-                onChange={handleMonthChange}
-              >
-                {renderMonthOptions()}
-              </select>
-              월&nbsp;
-              <select
-                name="selectedDay"
-                value={selectedDay}
-                onChange={handleDayChange}
-              >
-                {renderDayOptions()}
-              </select>
-              일
+              <DatePicker
+                dateFormat="yyyy년 MM월 dd일"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
             </td>
           </tr>
           <tr>
             <td>유통기한</td>
             <td>
-              <select
-                name="expiration_year"
-                value={selectedYear}
-                onChange={handleYearChange}
-              >
-                {renderYearOptions()}
-              </select>
-              년&nbsp;
-              <select
-                name="expiration_month"
-                value={selectedMonth}
-                onChange={handleMonthChange}
-              >
-                {renderMonthOptions()}
-              </select>
-              월&nbsp;
-              <select
-                name="expiration_day"
-                value={selectedDay}
-                onChange={handleDayChange}
-              >
-                {renderDayOptions()}
-              </select>
-              일
+              <DatePicker
+                dateFormat="yyyy년 MM월 dd일"
+                selected={expirationDate}
+                onChange={(date) => setExpirationDate(date)}
+              />
             </td>
           </tr>
           <tr>
