@@ -23,6 +23,47 @@ function List() {
   // 모달 오픈을 위한 유즈스테이트
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(0);
+  //
+  const subOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsListOpen(0);
+  };
+  const subOpenList = (num) => {
+    setIsListOpen(num);
+  };
+  const openModal = (num) => {
+    subOpenModal();
+    subOpenList(num);
+  }
+
+
+
+  return (
+    <div className="List">
+      <button onClick={() => openModal(1)}>모달 열기</button>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <Submit num={isListOpen} />
+        <p>{isListOpen}</p>
+      </Modal>
+
+      <div className="modal-btn-container">
+        <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(2)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(3)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(4)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(5)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(6)}>모달 열기</button>
+        <button className="modal-btn" onClick={() => openModal(7)}>모달 열기</button>
+      </div>
+    </div>
+  );
+}
+
+function Submit(props) {
 
   const date = new Date();
   // 현재 연도 가져오기
@@ -41,6 +82,10 @@ function List() {
   const [selectedYear, setSelectedYear] = useState(getCurrentYear());
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
   const [selectedDay, setSelectedDay] = useState(getCurrentDate());
+  //유통기한을 위한 유즈스테이트
+  const [expirationYear, setExpirationYear] = useState(getCurrentYear());
+  const [expirationMonth, setExpirationMonth] = useState(getCurrentMonth());
+  const [expirationDay, setExpirationDay] = useState(getCurrentDate());
   //카테고리선택을 위한 유즈스테이트
   const [selectedCategorie, setSelectedCategorie] = useState('카테고리');
   const [categories, setCategories] = useState([]);
@@ -74,7 +119,7 @@ function List() {
     setSelectedCategorie(e.target.value);
   };
 
-  
+
 
 
 
@@ -121,36 +166,39 @@ function List() {
     ));
   };
 
-  // 폼데이터 제출 시 처리 작업
-  const [user_id, setUsername] = useState('');
-  const [food_resource_id, setFood_resource_id] = useState('');
-  const [state, setState] = useState('');
-  const [registration_date, setRegistration_date] = useState('');
-  const [last_process_date, setLast_process_date] = useState('');
-  const [expiration_date, setExpiration_date] = useState('');
-  const [size, setSize] = useState('');
-  const [image, setImage] = useState('');
-  const [user_board_number, setUser_board_number] = useState('');
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString().padStart(2, '0');
+    const day = selectedDay.toString().padStart(2, '0');
+    const selectedDate = `${year}-${month}-${day}`;
+
+    const formData = new FormData(e.target);
+    
+
+    const e_year = expirationYear.toString();
+    const e_month = expirationMonth.toString().padStart(2, '0');
+    const e_day = expirationDay.toString().padStart(2, '0');
+    const e_selectedDate = `${e_year}-${e_month}-${e_day}`;
+
+    formData.append('registration_date', selectedDate);
+    formData.append('expiration_date', e_selectedDate);
+    formData.append('last_process_date', "00-00-00");
+    formData.append('size', "미정");
+    formData.append('image', "미정");
+    formData.append('user_board_number', props.num);
+
+    const formValues = Object.fromEntries(formData.entries());
 
     try {
-      const response = await axios.post('http://localhost:3002/user_food_resources', {
-        user_id: user_id,
-        food_resource_id: food_resource_id,
-        state: state,
-        registration_date: registration_date,
-        last_process_date: last_process_date,
-        expiration_date: expiration_date,
-        size: size,
-        image: image,
-        user_board_number: user_board_number
-      });
+      const response = await axios.post(
+        'http://localhost:3002/user_food_resources',
+        formValues
+      );
 
       // 서버 응답 처리
-      if (response.ok) {
+      if (response.status === 200) {
         console.log('폼 제출 성공');
       } else {
         console.error('폼 제출 실패');
@@ -160,96 +208,105 @@ function List() {
     }
   };
 
-  //
-  const subOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setIsListOpen(0);
-  };
-  const subOpenList = (num) => {
-    setIsListOpen(num);
-  };
-  const openModal = (num) => {
-    subOpenModal();
-    subOpenList(num);
-  }
-
-
-
   return (
-    <div className="List">
-      <button onClick={() => openModal(1)}>모달 열기</button>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h3>상태 : 미입력</h3>
-        <form className="input-form" onSubmit={handleSubmit}>
-          <table>
-            <tbody>
-              <tr>
-                <td>마지막수정일</td>
-                <td>년. 월. 일</td>
-              </tr>
-              <tr>
-                <td>이름 : </td>
-                
-                <td><input></input></td>
-              </tr>
-              <tr>
-                <td>소유자 : </td>
-                <td><input></input></td>
-              </tr>
-              <tr>
-                <td>카테고리</td>
-                <td><select value={selectedCategorie} onChange={handleCategorieChange}>
-                  {renderCategorieOptions()}
-                </select></td>
-              </tr>
-              <tr>
-                <td>보관일</td>
-                <td><select value={selectedYear} onChange={handleYearChange}>
-                  {renderYearOptions()}
-                </select>년&nbsp;
-                  <select value={selectedMonth} onChange={handleMonthChange}>
-                    {renderMonthOptions()}
-                  </select>월&nbsp;
-                  <select value={selectedDay} onChange={handleDayChange}>
-                    {renderDayOptions()}
-                  </select>일</td>
-              </tr>
-              <tr>
-                <td>유통기한</td>
-                <td><select value={selectedYear} onChange={handleYearChange}>
-                  {renderYearOptions()}
-                </select>년&nbsp;
-                  <select value={selectedMonth} onChange={handleMonthChange}>
-                    {renderMonthOptions()}
-                  </select>월&nbsp;
-                  <select value={selectedDay} onChange={handleDayChange}>
-                    {renderDayOptions()}
-                  </select>일</td>
-              </tr>
-              <tr>
-                <td>사진</td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" onClick={handleSubmit}>저장</button>
-        </form>
-        <p>{isListOpen}</p>
-      </Modal>
-
-      <div className="modal-btn-container">
-        <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(2)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(3)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(4)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(5)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(6)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(7)}>모달 열기</button>
-      </div>
-    </div>
+    <form className="input-form" onSubmit={handleSubmit}>
+      {props.num}
+      <h3>상태 : <input type="text" name="state" /></h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>마지막수정일</td>
+            <td>년. 월. 일</td>
+          </tr>
+          <tr>
+            <td>이름 : </td>
+            <td>
+              <input type="text" name="food_resource_id" />
+            </td>
+          </tr>
+          <tr>
+            <td>소유자 : </td>
+            <td>
+              <input type="text" name="user_id" />
+            </td>
+          </tr>
+          <tr>
+            <td>카테고리</td>
+            <td>
+              <select
+                name="selectedCategorie"
+                value={selectedCategorie}
+                onChange={handleCategorieChange}
+              >
+                {renderCategorieOptions()}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>보관일</td>
+            <td>
+              <select
+                name="selectedYear"
+                value={selectedYear}
+                onChange={handleYearChange}
+              >
+                {renderYearOptions()}
+              </select>
+              년&nbsp;
+              <select
+                name="selectedMonth"
+                value={selectedMonth}
+                onChange={handleMonthChange}
+              >
+                {renderMonthOptions()}
+              </select>
+              월&nbsp;
+              <select
+                name="selectedDay"
+                value={selectedDay}
+                onChange={handleDayChange}
+              >
+                {renderDayOptions()}
+              </select>
+              일
+            </td>
+          </tr>
+          <tr>
+            <td>유통기한</td>
+            <td>
+              <select
+                name="expiration_year"
+                value={selectedYear}
+                onChange={handleYearChange}
+              >
+                {renderYearOptions()}
+              </select>
+              년&nbsp;
+              <select
+                name="expiration_month"
+                value={selectedMonth}
+                onChange={handleMonthChange}
+              >
+                {renderMonthOptions()}
+              </select>
+              월&nbsp;
+              <select
+                name="expiration_day"
+                value={selectedDay}
+                onChange={handleDayChange}
+              >
+                {renderDayOptions()}
+              </select>
+              일
+            </td>
+          </tr>
+          <tr>
+            <td>사진</td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="submit">저장</button>
+    </form>
   );
 }
 

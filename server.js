@@ -97,35 +97,23 @@ app.get('/categories', async (req, res) => {
 
 //냉장고 리스트 입력값을 저장하기
 app.post('/user_food_resources', async (req, res) => {
-  const { username, password, email } = req.body;
+  const { user_id, food_resource_id, state, registration_date, last_process_date, expiration_date, size, image, user_board_number} = req.body;
 
   try {
-    // username이 이미 사용 중인지 확인
-    const connection = await pool.getConnection();
-    const [rows] = await connection.execute(
-      'SELECT * FROM users WHERE username = ?',
-      [username]
-    );
-
-    const [rows1] = await connection.execute(
-      'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
-    );
-    const id = rows1[0].id + 1;
-
-    if (rows.length > 0) {
-      // 이미 사용 중인 경우
-      res.status(400).json({ message: 'Username already in use' });
-      return;
-    }
-    // 새로운 계정 생성
-
+    const connection = await pool.getConnection(); // 데이터베이스 연결 생성
     await connection.execute(
       'INSERT INTO user_food_resources (user_id, food_resource_id, state, registration_date, last_process_date, expiration_date, size, image, user_board_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-      id,
-      username,
-      password,
-      email
+        user_id,
+        food_resource_id,
+        state,
+        registration_date,
+        last_process_date,
+        expiration_date,
+        size,
+        image,
+        user_board_number
     ]);
+    connection.release(); // 연결 해제
 
     res.json({ message: 'User created successfully' });
   } catch (error) {
@@ -133,6 +121,7 @@ app.post('/user_food_resources', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 app.listen(3002, () => {
   console.log('Server listening on port 3002');
