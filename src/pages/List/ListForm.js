@@ -74,31 +74,63 @@ function Submit(props) {
 
   //카테고리선택을 위한 유즈스테이트
   const [selectedCategorie, setSelectedCategorie] = useState('카테고리');
+  const [selectedSubCategorie, setSubSelectedCategorie] = useState('소카테고리');
   const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
+  //카테고리 유즈이펙
   useEffect(() => {
-    axios.get('http://localhost:3002/categories')
-      .then(response => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:3002/categories');
         setCategories(response.data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+    
+    fetchCategories();
   }, []);
+// 서브 카테고리 유즈이펙
 
-
-  // 카테고리 선택 이벤트 핸들러
-  const handleCategorieChange = (e) => {
-    setSelectedCategorie(e.target.value);
+useEffect(() => {
+  const fetchSubCategories = async (categoryId) => {
+    try {
+      const response = await axios.get(`http://localhost:3002/food_resources?category_id=${categoryId}`);
+      setSubCategories(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  // 카테고리 옵션 생성 (미완)
+
+  fetchSubCategories(selectedCategorie);
+
+}, [selectedCategorie]);
+
+
+
+  //카테고리 선택 이벤트 핸들러
+  const handleCategorieChange = (categoryId) => {
+    setSelectedCategorie(categoryId);
+  };
+  // 카테고리 옵션 생성
   const renderCategorieOptions = () => {
-    return categories.map((category, index) => (
-      <option key={index} value={category}>{category}</option>
+    return categories.map((category) => (
+      <option key={category.id} value={category.id}>{category.name}</option>
     ));
   };
 
+  // 서브카테고리 선택 이벤트 핸들러
+  const handleSubCategorieChange = (categoryId) => {
+    setSubSelectedCategorie(categoryId);
+  };
+  // 서브 카테고리 옵션 생성
+  const renderSubCategorieOptions = () => {
+    return subCategories.map((subCategory) => (
+      <option key={subCategory.id} value={subCategory}>{subCategory.name}</option>
+    ));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,9 +166,11 @@ function Submit(props) {
   return (
     <form className="input-form" onSubmit={handleSubmit}>
       {props.num}
+      {selectedCategorie.name}
       <h3>상태 : <input type="text" name="state" /></h3>
       <table>
         <tbody>
+          {categories.id}
           <tr>
             <td>마지막수정일</td>
             <td>년. 월. 일</td>
@@ -158,10 +192,17 @@ function Submit(props) {
             <td>
               <select
                 name="selectedCategorie"
-                value={selectedCategorie}
-                onChange={handleCategorieChange}
+                value={selectedCategorie.name}
+                onChange={(e) => handleCategorieChange(e.target.value)}
               >
                 {renderCategorieOptions()}
+              </select>
+              <select
+                name="selectedSubCategorie"
+                value={selectedSubCategorie.name}
+                onChange={(e) => handleSubCategorieChange(e.target.value)}
+              >
+                {renderSubCategorieOptions()}
               </select>
             </td>
           </tr>

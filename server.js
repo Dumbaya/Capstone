@@ -183,10 +183,40 @@ app.post('/signup/google', async (req, res) => {
 app.get('/categories', async (req, res) => {
   try {
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute('SELECT name FROM categories');
+    const [rows] = await connection.execute('SELECT id,name FROM categories');
     connection.release();
-    const names = rows.map((row) => row.name);
-    res.json(names);
+    const categories = rows.map((row) => {
+      return {
+        id: row.id,
+        name: row.name
+      };
+    });
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 카테고리에 따른 소카테고리 불러오기  
+app.get('/food_resources', async (req, res) => {
+  try {
+    const categoryId = req.query.category_id;
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM food_resources WHERE category_id = ?',
+      [categoryId]
+    );
+    connection.release();
+    const subCategories = rows.map((row) => {
+      return {
+        id: row.id,
+        name: row.name,
+        recommended_shelf_life: row.recommended_shelf_life,
+        category_id: row.category_id
+      };
+    });
+    res.json(subCategories);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
