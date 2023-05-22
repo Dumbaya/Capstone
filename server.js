@@ -220,6 +220,20 @@ app.post('/user_food_resources', async (req, res) => {
   }
 });
 
+//게시판
+app.get('/freeboard', async (req, res) => {
+  try {
+    // 게시판 데이터 가져오기
+    const [rows] = await pool.query('SELECT id, title, author, date, views FROM free_notice_board');
+
+    // 가져온 데이터 응답으로 전송
+    res.json(rows);
+  } catch (error) {
+    console.error('Error retrieving posts:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.listen(3002, () => {
   console.log('Server listening on port 3002');
