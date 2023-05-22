@@ -2,8 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const passport = require('passport');
 
 const app = express();
 app.use(express.json());
@@ -43,7 +41,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-//회원가입
+//일반 회원가입
 app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
 
@@ -74,7 +72,45 @@ app.post('/signup', async (req, res) => {
       email
     ]);
 
-    res.json({ message: 'User created successfully' });
+    res.status(200).json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+//구글 회원가입
+app.post('/signup/google', async (req, res) => {
+  const { username, password, email } = req.body;
+
+  try {
+    // username이 이미 사용 중인지 확인
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute(
+      'SELECT * FROM users WHERE username = ?',
+      [username]
+    );
+
+    const [rows1] = await connection.execute(
+      'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
+    );
+    const id = rows1[0].id + 1;
+
+    if (rows.length > 0) {
+      // 이미 사용 중인 경우
+      res.status(400).json({ message: 'Username already in use' });
+      return;
+    }
+    // 새로운 계정 생성
+
+    await connection.execute('INSERT INTO users (id, username, password, email) VALUES (?, ?, ?, ?)', [
+      id,
+      username,
+      password,
+      email
+    ]);
+
+    res.status(200).json({ message: 'User created successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
