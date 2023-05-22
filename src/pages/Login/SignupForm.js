@@ -39,11 +39,11 @@ function SignUpForm() {
       }
     } catch (error) {
       console.error(error);
-      alert('오류로 인해 회원가입에 실패했습니다. 다시 시도해주세요.');
+      alert('이미 가입된 계정입니다.');
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleSignup = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       const { user } = await firebase.auth().signInWithPopup(provider);
@@ -51,7 +51,6 @@ function SignUpForm() {
       const password = user.displayName;
       const email = user.email;
   
-      // 이메일과 이름 값을 서버의 회원가입 API로 전송
       const response = await axios.post('http://localhost:3002/signup/google', {
         username: username,
         password: password,
@@ -59,14 +58,14 @@ function SignUpForm() {
       });
   
       if (response.ok) {
-        alert('회원가입에 실패했습니다. 다시 시도해주세요.');    
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
       } else {
         alert('회원가입이 완료되었습니다.');
         window.location.href = 'http://localhost:3000/Login/LoginForm';
       }
     } catch (error) {
       console.error(error);
-      alert('오류로 인해 회원가입에 실패했습니다. 다시 시도해주세요.');
+      alert('이미 가입된 계정입니다.');
     }
   };
 
@@ -95,7 +94,7 @@ function SignUpForm() {
           <button type="button" onClick={handleSignup}>회원가입</button>
         </div> 
       </div>
-      <button onClick={handleGoogleLogin}>구글 로그인</button>
+      <button onClick={handleGoogleSignup}>구글 로그인으로 회원가입</button>
     </div>
   );
 }

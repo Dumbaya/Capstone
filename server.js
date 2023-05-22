@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(express.json());
@@ -24,17 +25,35 @@ app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const connection = await pool.getConnection();
-    const [rows] = await connection.execute(
-      'SELECT * FROM users WHERE username = ? AND password = ?',
-      [username, password]
-    );
-    connection.release();
+
+    const sql = 'SELECT * FROM users WHERE username = ?';
+  const values = [username];
+
+  pool.execute(sql, values)
+  .then(([rows]) => {
     if (rows.length === 1) {
-      req.session.username = username;
-      res.json({ success: true });
-    } else {
-      res.json({ success: false });
+      const user = rows[0];
+      const hashedPassword = user.password;
+      bcrypt.compare(password, hashedPassword)
+      .then((result) => {
+        if (result) {
+          console.log('Login successful');
+          req.session.username = username;
+          res.json({ success: true });
+        } else {
+          console.log('Invalid password');
+          res.json({ success: false });
+        }
+      })
+      .catch((error) => {
+        console.error('Error comparing passwords:', error);
+      });
     }
+  })
+  .catch((error) => {
+    console.error('Error fetching user data:', error);
+  });
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -52,25 +71,48 @@ app.post('/signup', async (req, res) => {
       'SELECT * FROM users WHERE username = ?',
       [username]
     );
+    const [rows_0] = await connection.execute(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
 
     const [rows1] = await connection.execute(
       'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
     );
     const id = rows1[0].id + 1;
-
+  
     if (rows.length > 0) {
       // 이미 사용 중인 경우
       res.status(400).json({ message: 'Username already in use' });
       return;
     }
+
+    if (rows_0.length > 0) {
+      // 이미 사용 중인 경우
+      res.status(400).json({ message: 'Username already in use' });
+      return;
+    }
+
+
     // 새로운 계정 생성
 
-    await connection.execute('INSERT INTO users (id, username, password, email) VALUES (?, ?, ?, ?)', [
-      id,
-      username,
-      password,
-      email
-    ]);
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds)
+  .then((hashedPassword) => {
+    const sql = 'INSERT INTO users (id, username, password, email) VALUES (?, ?, ?, ?)';
+    const values = [id, username, hashedPassword, email];
+
+    pool.execute(sql, values)
+      .then(() => {
+        console.log('User data inserted into MySQL');
+      })
+      .catch((error) => {
+        console.error('Error inserting user data into MySQL:', error);
+      });
+  })
+  .catch((error) => {
+    console.error('Error hashing password:', error);
+  });
 
     res.status(200).json({ message: 'User created successfully' });
   } catch (error) {
@@ -90,6 +132,10 @@ app.post('/signup/google', async (req, res) => {
       'SELECT * FROM users WHERE username = ?',
       [username]
     );
+    const [rows_0] = await connection.execute(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
 
     const [rows1] = await connection.execute(
       'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
@@ -101,14 +147,30 @@ app.post('/signup/google', async (req, res) => {
       res.status(400).json({ message: 'Username already in use' });
       return;
     }
+    if (rows_0.length > 0) {
+      // 이미 사용 중인 경우
+      res.status(400).json({ message: 'Username already in use' });
+      return;
+    }
     // 새로운 계정 생성
 
-    await connection.execute('INSERT INTO users (id, username, password, email) VALUES (?, ?, ?, ?)', [
-      id,
-      username,
-      password,
-      email
-    ]);
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds)
+  .then((hashedPassword) => {
+    const sql = 'INSERT INTO users (id, username, password, email) VALUES (?, ?, ?, ?)';
+    const values = [id, username, hashedPassword, email];
+
+    pool.execute(sql, values)
+      .then(() => {
+        console.log('User data inserted into MySQL');
+      })
+      .catch((error) => {
+        console.error('Error inserting user data into MySQL:', error);
+      });
+  })
+  .catch((error) => {
+    console.error('Error hashing password:', error);
+  });
 
     res.status(200).json({ message: 'User created successfully' });
   } catch (error) {
