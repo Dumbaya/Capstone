@@ -178,7 +178,7 @@ useEffect(() => {
           <tr>
             <td>이름 : </td>
             <td>
-              <input type="text" name="food_resource_id" />
+              <input type="text" name="food_name" />
             </td>
           </tr>
           <tr>

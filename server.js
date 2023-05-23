@@ -225,14 +225,14 @@ app.get('/food_resources', async (req, res) => {
 
 //냉장고 리스트 입력값을 저장하기
 app.post('/user_food_resources', async (req, res) => {
-  const { user_id, food_resource_id, state, registration_date, last_process_date, expiration_date, size, image, user_board_number} = req.body;
+  const { user_id, food_name, state, registration_date, last_process_date, expiration_date, size, image, user_board_number} = req.body;
 
   try {
     const connection = await pool.getConnection(); // 데이터베이스 연결 생성
     await connection.execute(
-      'INSERT INTO user_food_resources (user_id, food_resource_id, state, registration_date, last_process_date, expiration_date, size, image, user_board_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+      'INSERT INTO user_food_resources (user_id, food_name, state, registration_date, last_process_date, expiration_date, size, image, user_board_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
         user_id,
-        food_resource_id,
+        food_name,
         state,
         registration_date,
         last_process_date,
