@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import "../../css/Board.css";
 import {Routes, Route, useNavigate} from "react-router-dom";
-
+import axios from "axios";
 import BoardWriterForm from "./BoardWriteForm";
 
 function Board() {
     const [query, setQuery] = useState("");
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        fetchPosts();
+      }, []);
+    
+      const fetchPosts = async () => {
+        try {
+          const response = await fetch('http://localhost:3002/freeboard'); // API 엔드포인트에 맞게 경로 설정
+          const data = await response.json();
+          setPosts(data);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+      };
 
     const handleQueryChange = (event) => {
         setQuery(event.target.value);
@@ -55,18 +70,31 @@ function Board() {
                         <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
-                <table className="freeboard-table">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                            <th>조회수</th>
-                        </tr>
-                    </thead>
+                <div>
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
                 </table>
                 <hr></hr>
+                {posts.map((post) => (
+                    <div key={post.id}>                       
+                        <table>
+                            <tr>
+                                <td>{post.id}</td>
+                                <td>{post.title}</td>
+                                <td>{post.author}</td>
+                                <td>{post.date}</td>
+                                <td>{post.views}</td>
+                            </tr>
+                        </table>
+                    </div>
+                ))}
+                </div>                
             </div>
             ) : (
             <div className="board qna-board">
