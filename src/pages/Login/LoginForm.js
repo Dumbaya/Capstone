@@ -1,12 +1,27 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
-import { GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import "../../css/Login.css";
 
 import SignupForm from "./SignupForm"; 
 
-const Login = () => {
+const firebaseConfig = {
+  apiKey: "AIzaSyCf7wOpt60WAQwg9BEFjeHzZq_6QYBfBoU",
+  authDomain: "capstone-387105.firebaseapp.com",
+  projectId: "capstone-387105",
+  storageBucket: "capstone-387105.appspot.com",
+  messagingSenderId: "774959781817",
+  appId: "1:774959781817:web:3f1a4f8e9c11643850c868",
+  measurementId: "G-4R22K2KVV4"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,7 +34,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/login', {
+        const response = await axios.post('http://localhost:3002/login', {
         username: username,
         password: password
       });
@@ -37,6 +52,34 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async() => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      // 구글 로그인 팝업 띄우기     
+      const { user } = await firebase.auth().signInWithPopup(provider);
+      const username = user.displayName;
+      const password = user.displayName;
+      
+      const response = await axios.post('http://localhost:3002/googlelogin',{
+        username: username,
+        password: password
+      })
+
+      // 사용자 정보 가져오기
+      if (response.data.success) {
+        sessionStorage.setItem('username',username);
+        sessionStorage.setItem('loginState', true);
+        alert('로그인 성공');
+        window.location.href = 'http://localhost:3000/';
+      } else {
+        alert('로그인 실패');
+      }
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+    }
+    
+  };
+
   return (
     <div className='LoginForm'>
       <div className='Login'>
@@ -51,30 +94,17 @@ const Login = () => {
           </div>
           <button className='LoginButton' type="submit">로그인</button>
         </form>
-        <form>
+        <div>
           <div className='register'>
             <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
             <Routes>
               <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
             </Routes>
           </div>
-          <div className='google-login'>
-            <React.Fragment>
-              <GoogleOAuthProvider clientId='774959781817-j2df940qcjig49lseldpi3shq2171d5a.apps.googleusercontent.com'>
-                <GoogleLogin
-                buttonText="Google Login"
-                onSuccess={(credentialResponse)=>{
-                  window.location.href = 'http://localhost:3000/';
-                  sessionStorage.setItem('loginState', true);
-                }}
-                onError={()=>{
-                  alert('실패')
-                }}
-                />
-              </GoogleOAuthProvider>
-            </React.Fragment>
+          <div>
+            <button onClick={handleGoogleLogin}>Sign in with Google</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
