@@ -15,10 +15,10 @@ function Submit(props) {
 
 
     //카테고리선택을 위한 유즈스테이트
-    const [selectedCategorie, setSelectedCategorie] = useState([]);
-    const [selectedSubCategorie, setSubSelectedCategorie] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [subCategories, setSubCategories] = useState([]);
+    const [selectedCategorie, setSelectedCategorie] = useState([]);//여기에는 선택된 카테고리의 아이디값만 들어감
+    const [selectedSubCategorie, setSubSelectedCategorie] = useState([]);//여기에는 선택된 카테고리의 아이디값만 들어감
+    const [categories, setCategories] = useState([]);//데이터 여러개 그자체가 들어감
+    const [subCategories, setSubCategories] = useState([]);//데이터 여러개 그자체가 들어감
 
     
 
@@ -56,7 +56,10 @@ function Submit(props) {
 
     //카테고리 선택 이벤트 핸들러
     const handleCategorieChange = (categoryId) => {
-        setSelectedCategorie(categoryId);
+        if (categoryId!='0'){
+            setSelectedCategorie(categoryId);
+        }
+        
     };
     // 카테고리 옵션 생성
     const renderCategorieOptions = () => {
@@ -67,13 +70,18 @@ function Submit(props) {
 
     // 서브카테고리 선택 이벤트 핸들러
     const handleSubCategorieChange = (categoryId) => {
-        setSubSelectedCategorie(categoryId);
-
+        if(categoryId!='0'){
+            setSubSelectedCategorie(categoryId);
+        const days = parseInt(subCategories.find(item => item.id == categoryId)?.recommended_shelf_life);
+        //여기에 날짜 변경 추가
+        setExpirationDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + days));
+        }
+        
     };
     // 서브 카테고리 옵션 생성
     const renderSubCategorieOptions = () => {
         return subCategories.map((subCategory) => (
-            <option key={subCategory.id} value={subCategory}>{subCategory.name}</option>
+            <option key={subCategory.id} value={subCategory.id}>{subCategory.name}</option>
         ));
     };
 
@@ -109,11 +117,10 @@ function Submit(props) {
     };
 
     const waiting = () => {
-        const asd = subCategories.find(item => item.id === selectedCategorie.id)?.name;
+        const asd = subCategories.find(item => item.id == selectedSubCategorie)?.name;
         return (
             <form className="input-form" onSubmit={handleSubmit}>
                 {props.num}
-                {asd}
                 <h3>상태 : <input type="text" name="state" value="입력대기" readOnly /></h3>
                 <table>
                     <tbody>
@@ -125,7 +132,7 @@ function Submit(props) {
                         <tr>
                             <td>이름 : </td>
                             <td>
-                                <input type="text" name="food_name" value={selectedCategorie.name} />
+                                <input type="text" name="food_name" value={asd} />
                             </td>
                         </tr>
                         <tr>
@@ -142,6 +149,7 @@ function Submit(props) {
                                     value={selectedCategorie.name}
                                     onChange={(e) => handleCategorieChange(e.target.value)}
                                 >
+                                    <option key={0} value={0}>없음</option>
                                     {renderCategorieOptions()}
                                 </select>
                                 <select
@@ -149,6 +157,7 @@ function Submit(props) {
                                     value={selectedSubCategorie.name}
                                     onChange={(e) => handleSubCategorieChange(e.target.value)}
                                 >
+                                    <option key={0} value={0}>선택</option>
                                     {renderSubCategorieOptions()}
                                 </select>
                             </td>
