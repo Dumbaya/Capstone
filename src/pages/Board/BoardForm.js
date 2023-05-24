@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from "react";
 import "../../css/Board.css";
 import {Routes, Route, useNavigate} from "react-router-dom";
-import axios from "axios";
 import BoardWriterForm from "./BoardWriteForm";
 
 function Board() {

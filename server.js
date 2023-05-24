@@ -60,6 +60,46 @@ app.post('/login', async (req, res) => {
   }
 });
 
+//구글 로그인
+app.post('/googlelogin', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const connection = await pool.getConnection();
+
+    const sql = 'SELECT * FROM users WHERE username = ?';
+  const values = [username];
+
+  pool.execute(sql, values)
+  .then(([rows]) => {
+    if (rows.length === 1) {
+      const user = rows[0];
+      const hashedPassword = user.password;
+      bcrypt.compare(password, hashedPassword)
+      .then((result) => {
+        if (result) {
+          console.log('Login successful');
+          req.session.username = username;
+          res.json({ success: true });
+        } else {
+          console.log('Invalid password');
+          res.json({ success: false });
+        }
+      })
+      .catch((error) => {
+        console.error('Error comparing passwords:', error);
+      });
+    }
+  })
+  .catch((error) => {
+    console.error('Error fetching user data:', error);
+  });
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //일반 회원가입
 app.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
@@ -254,7 +294,7 @@ app.post('/user_food_resources', async (req, res) => {
 app.get('/freeboard', async (req, res) => {
   try {
     // 게시판 데이터 가져오기
-    const [rows] = await pool.query('SELECT id, title, author, date, views FROM free_notice_board');
+    const [rows] = await pool.query('SELECT id, title, author, date , views FROM free_notice_board');
 
     // 가져온 데이터 응답으로 전송
     res.json(rows);
