@@ -5,21 +5,38 @@ import BoardWriterForm from "./BoardWriteForm";
 
 function Board() {
     const [query, setQuery] = useState("");
-    const [posts, setPosts] = useState([]);
+    const [freeposts, setFreePosts] = useState([]);
+    const [qaposts, setQaPosts] = useState([]);
 
+    //자유게시판 출력
     useEffect(() => {
-        fetchPosts();
+        freeboardfetchPosts();
       }, []);
     
-      const fetchPosts = async () => {
+    const freeboardfetchPosts = async () => {
         try {
           const response = await fetch('http://localhost:3002/freeboard'); // API 엔드포인트에 맞게 경로 설정
-          const data = await response.json();
-          setPosts(data);
+          const freedata = await response.json();
+          setFreePosts(freedata);
         } catch (error) {
           console.error('Error fetching posts:', error);
         }
-      };
+    };
+
+    //Q&A게시판 출력
+    useEffect(() => {
+        qaboardfetchPosts();
+      }, []);
+
+    const qaboardfetchPosts = async () => {
+        try {
+          const response = await fetch('http://localhost:3002/qaboard'); // API 엔드포인트에 맞게 경로 설정
+          const qadata = await response.json();
+          setQaPosts(qadata);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+    };
 
     const handleQueryChange = (event) => {
         setQuery(event.target.value);
@@ -80,7 +97,7 @@ function Board() {
                     </tr>
                 </table>
                 <hr></hr>
-                {posts.map((post) => (
+                {freeposts.map((post) => (
                     <div key={post.id}>                       
                         <table>
                             <tr>
@@ -109,18 +126,31 @@ function Board() {
                         <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
-                <table className="qaboard-table">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                            <th>조회수</th>
-                        </tr>
-                    </thead>
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                        <th>조회수</th>
+                    </tr>
                 </table>
                 <hr></hr>
+                {qaposts.map((post) => (
+                    <div key={post.id}>                       
+                        <table>
+                            <tr>
+                                <td>{post.id}</td>
+                                <td>{post.thread_id}</td>
+                                <td>{post.author}</td>
+                                <td>{post.qa_type}</td>
+                                <td>{post.title}</td>
+                                <td>{post.date}</td>
+                            </tr>
+                        </table>
+                    </div>
+                ))}
             </div>
             )}
         </div>    

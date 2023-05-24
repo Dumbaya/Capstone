@@ -290,7 +290,7 @@ app.post('/user_food_resources', async (req, res) => {
   }
 });
 
-//게시판
+//자유게시판
 app.get('/freeboard', async (req, res) => {
   try {
     // 게시판 데이터 가져오기
@@ -304,6 +304,19 @@ app.get('/freeboard', async (req, res) => {
   }
 });
 
+//Q&A게시판
+app.get('/qaboard', async (req, res) => {
+  try {
+    // 게시판 데이터 가져오기
+    const [rows] = await pool.query('SELECT id, thread_id, author, qa_type, title, date FROM qa');
+
+    // 가져온 데이터 응답으로 전송
+    res.json(rows);
+  } catch (error) {
+    console.error('Error retrieving posts:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(3002, () => {
   console.log('Server listening on port 3002');
