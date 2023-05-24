@@ -7,11 +7,11 @@ import "../../../css/List.css";
 
 
 function Infor(props) {
-        return (
-            <div>
-                
-            </div>
-        );
+    return (
+        <form className="input-form">
+            asdf
+        </form>
+    );
 }
 
 export default Infor;
