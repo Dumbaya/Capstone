@@ -22,13 +22,7 @@ const pool = mysql.createPool({
   database: 'hoseo1234'
 });
 
-function getCurrentDate() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+
 
 //로그인
 app.post('/login', async (req, res) => {
@@ -156,19 +150,22 @@ app.post('/signup', async (req, res) => {
 
     pool.execute(sql, values)
       .then(() => {
-        console.log('User data inserted into MySQL');
-        res.status(200).json({ message: 'User created successfully' });
+        console.log('User data inserted into MySQL');    
+        res.json({ success: true });
       })
       .catch((error) => {
         console.error('Error inserting user data into MySQL:', error);
+        res.json({ success: false });
       });
       })
       .catch((error) => {
         console.error('Error hashing password:', error);
+        res.json({ success: false });
       });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
+    res.json({ success: false });
   }
 });
 
@@ -218,16 +215,19 @@ app.post('/signup/google', async (req, res) => {
     pool.execute(sql, values)
       .then(() => {
         console.log('User data inserted into MySQL');
+        res.json({ success: true });
       })
       .catch((error) => {
         console.error('Error inserting user data into MySQL:', error);
+        res.json({ success: false });
       });
   })
   .catch((error) => {
     console.error('Error hashing password:', error);
+    res.json({ success: false });
   });
 
-    res.status(200).json({ message: 'User created successfully' });
+    res.json({ success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -372,6 +372,8 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
       console.error('Error inserting content:', error);
       res.status(500).json({ success: false, message: 'Failed to insert content' });
       return;
+    }else{
+      res.status(200).json({ success: true, message: 'Board post created successfully' });
     }
   })
 
@@ -402,6 +404,7 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
       res.status(200).json({ success: true, message: 'Board post created successfully' });
     });
   }
+  res.status(200).json({ success: true, message: 'Board post created successfully' });
 });
 
 app.listen(3002, () => {

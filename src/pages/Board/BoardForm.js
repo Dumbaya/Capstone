@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import "../../css/Board.css";
 import {Routes, Route, useNavigate} from "react-router-dom";
 import BoardWriterForm from "./BoardWriteForm";
+import dateFormat from 'dateformat';
 
 function Board() {
     const [query, setQuery] = useState("");
@@ -104,7 +105,7 @@ function Board() {
                                 <td>{post.id}</td>
                                 <td>{post.title}</td>
                                 <td>{post.author}</td>
-                                <td>{post.date}</td>
+                                <td>{dateFormat(post.date, "yyyy년 mm월 dd일")}</td>
                                 <td>{post.views}</td>
                             </tr>
                         </table>
@@ -146,7 +147,7 @@ function Board() {
                                 <td>{post.author}</td>
                                 <td>{post.qa_type}</td>
                                 <td>{post.title}</td>
-                                <td>{post.date}</td>
+                                <td>{dateFormat(post.date, "yyyy년 mm월 dd일")}</td>
                             </tr>
                         </table>
                     </div>

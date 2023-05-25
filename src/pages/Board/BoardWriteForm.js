@@ -33,7 +33,12 @@ function BoardWriteForm() {
         try {
             const response = await axios.post('http://localhost:3002/freeboardwrite', formData);
             console.log(response.data);
-            alert('게시물 작성 완료');
+            if (response.data.success) {
+                window.location.href = 'http://localhost:3000/Board/BoardForm';
+                alert('게시물 작성 완료');
+              } else {
+                alert('게시물 작성 오류');
+              }
         } catch (error) {
             console.error(error);
             alert('게시물 작성 오류');
