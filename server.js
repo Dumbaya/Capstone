@@ -3,6 +3,8 @@ const session = require('express-session');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const upload = multer({dest : 'public/uploads/'});
 
 const app = express();
 app.use(express.json());
@@ -19,6 +21,14 @@ const pool = mysql.createPool({
   password: 'hoseo12!',
   database: 'hoseo1234'
 });
+
+function getCurrentDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 //로그인
 app.post('/login', async (req, res) => {
@@ -119,7 +129,11 @@ app.post('/signup', async (req, res) => {
     const [rows1] = await connection.execute(
       'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
     );
-    const id = rows1[0].id + 1;
+
+    let id = 0;
+    if (rows1.length > 0) {
+      id = rows1[0].id + 1;
+    }
   
     if (rows.length > 0) {
       // 이미 사용 중인 경우
@@ -177,7 +191,11 @@ app.post('/signup/google', async (req, res) => {
     const [rows1] = await connection.execute(
       'SELECT id FROM users ORDER BY id DESC LIMIT 1;'
     );
-    const id = rows1[0].id + 1;
+
+    let id = 0;
+    if (rows1.length > 0) {
+      id = rows1[0].id + 1;
+    }
 
     if (rows.length > 0) {
       // 이미 사용 중인 경우
@@ -312,6 +330,77 @@ app.get('/qaboard', async (req, res) => {
   } catch (error) {
     console.error('Error retrieving posts:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//자유게시글 작성
+app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
+  const connection = await pool.getConnection();
+  const post_content = req.body.content;
+  const images = req.files;
+  const title = req.body.title;
+  const author = req.body.author;
+
+  //free_notice_board 데이터베이스에 저장
+  const [rows] = await connection.execute(
+    'SELECT id FROM free_notice_board ORDER BY id DESC LIMIT 1;'
+  );
+
+  let id = 0;
+  if (rows.length > 0) {
+    id = rows[0].id + 1;
+  }
+
+  const date = new Date();
+  
+  let views = 0;
+
+  await connection.query('INSERT INTO free_notice_board (id, title, author, date, views) VALUES (?, ?, ?, ?, ?)', [id, title, author, date, views]);
+
+  // content를 데이터베이스에 저장
+  const [rows1] = await connection.query(
+    'SELECT post_id FROM board_post ORDER BY post_id DESC LIMIT 1;'
+  );
+
+  let post_id = 0;
+  if (rows1.length > 0) {
+    post_id = rows1[0].post_id + 1;
+  }
+
+  await connection.query('INSERT INTO board_post (post_id, board_id, post_content) VALUES (?, ?, ?)', [post_id, id, post_content], (error, results) => {
+    if (error) {
+      console.error('Error inserting content:', error);
+      res.status(500).json({ success: false, message: 'Failed to insert content' });
+      return;
+    }
+  })
+
+  // images를 데이터베이스에 저장
+  const imageUrls = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const image = images[i];
+    const imageUrl = 'public/uploads/${image.filename}';
+
+    const [rows2] = await connection.query(
+      'SELECT image_id FROM image ORDER BY image_id DESC LIMIT 1;'
+    );
+    
+    let image_id = 0;
+    if (rows2.length > 0) {
+      image_id = rows2[0].image_id + 1;
+    }
+  
+    // 이미지 파일 경로를 데이터베이스에 저장
+    await connection.query('INSERT INTO image (image_id, post_id, image_path) VALUES (?, ?, ?)', [image_id, post_id, imageUrl], (error, results) => {
+      if (error) {
+        console.error('Error inserting image:', error);
+        res.status(500).json({ success: false, message: 'Failed to insert image' });
+        return;
+      }
+  
+      res.status(200).json({ success: true, message: 'Board post created successfully' });
+    });
   }
 });
 
