@@ -9,7 +9,7 @@ import "../../../css/List.css";
 function Infor(props) {
     return (
         <form className="input-form">
-            asdf
+            
         </form>
     );
 }

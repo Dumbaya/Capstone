@@ -117,9 +117,11 @@ function Waiting(props) {
     };
 
     const food_name = subCategories.find(item => item.id == selectedSubCategorie)?.name;
+    const asd=sessionStorage.getItem('username');
         return (
             <form className="input-form" onSubmit={handleSubmit}>
                 {props.num}
+                {asd}
                 <h3>상태 : <input type="text" name="state" value="입력대기" readOnly /></h3>
                 <table>
                     <tbody>
