@@ -12,7 +12,6 @@ function Submit(props) {
     return (
         <div>
             <Waiting num={props.num}/>
-            <Infor num={props.num}/>
         </div>
     );
 }
