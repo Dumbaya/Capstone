@@ -133,9 +133,7 @@ app.post('/signup', async (req, res) => {
       return;
     }
 
-
     // 새로운 계정 생성
-
     const saltRounds = 10;
     bcrypt.hash(password, saltRounds)
   .then((hashedPassword) => {
@@ -145,16 +143,15 @@ app.post('/signup', async (req, res) => {
     pool.execute(sql, values)
       .then(() => {
         console.log('User data inserted into MySQL');
+        res.status(200).json({ message: 'User created successfully' });
       })
       .catch((error) => {
         console.error('Error inserting user data into MySQL:', error);
       });
-  })
-  .catch((error) => {
-    console.error('Error hashing password:', error);
-  });
-
-    res.status(200).json({ message: 'User created successfully' });
+      })
+      .catch((error) => {
+        console.error('Error hashing password:', error);
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
