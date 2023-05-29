@@ -31,11 +31,11 @@ function SignUpForm() {
         email: email
       });
 
-      if (response.ok) {
-        alert('회원가입에 실패했습니다. 다시 시도해주세요.');       
-      } else {
+      if (response.data.success) {
         alert('회원가입이 완료되었습니다.');
-        window.location.href = 'http://localhost:3000/Login/LoginForm';
+        window.location.href = 'http://localhost:3000/Login/LoginForm';          
+      } else {
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');    
       }
     } catch (error) {
       console.error(error);
@@ -57,11 +57,11 @@ function SignUpForm() {
         email: email
       });
   
-      if (response.ok) {
-        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-      } else {
+      if (response.data.success) {
         alert('회원가입이 완료되었습니다.');
-        window.location.href = 'http://localhost:3000/Login/LoginForm';
+        window.location.href = 'http://localhost:3000/Login/LoginForm';     
+      } else {
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
       console.error(error);
