@@ -96,6 +96,7 @@ function Waiting(props) {
         formData.append('size', "미정");
         formData.append('image', "미정");
         formData.append('user_board_number', props.num);
+        formData.append('user_name', sessionStorage.getItem('username'));
 
         const formValues = Object.fromEntries(formData.entries());
 
@@ -117,11 +118,9 @@ function Waiting(props) {
     };
 
     const food_name = subCategories.find(item => item.id == selectedSubCategorie)?.name;
-    const asd=sessionStorage.getItem('username');
         return (
             <form className="input-form" onSubmit={handleSubmit}>
                 {props.num}
-                {asd}
                 <h3>상태 : <input type="text" name="state" value="입력대기" readOnly /></h3>
                 <table>
                     <tbody>
@@ -134,12 +133,6 @@ function Waiting(props) {
                             <td>이름 : </td>
                             <td>
                                 <input type="text" name="food_name" value={food_name} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>소유자 : </td>
-                            <td>
-                                <input type="text" name="user_id" />
                             </td>
                         </tr>
                         <tr>
