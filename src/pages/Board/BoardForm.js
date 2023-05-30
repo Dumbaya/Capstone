@@ -103,7 +103,7 @@ function Board() {
                         <table key={freeboard.id}>
                             <tr>
                                 <td>{freeboard.id}</td>
-                                <td><Link to={`/Board/${freeboard.id}`}>{freeboard.title}</Link></td>
+                                <td><Link to={`/freeBoard/${freeboard.id}`}>{freeboard.title}</Link></td>
                                 <td>{freeboard.author}</td>
                                 <td>{dateFormat(freeboard.date, "yyyy년 mm월 dd일")}</td>
                                 <td>{freeboard.views}</td>

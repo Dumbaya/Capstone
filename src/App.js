@@ -8,6 +8,7 @@ import Recipe from "./pages/Recipe/RecipeForm";
 import Board from "./pages/Board/BoardForm";
 import FreeBoardWriteForm from "./pages/Board/Freeboard/FreeBoardWriteForm";
 import FreeBoardReadForm from "./pages/Board/Freeboard/FreeBoardReadForm";
+import FreeBoardUpdateForm from "./pages/Board/Freeboard/FreeBoardUpdateForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
 import Test from "./pages/test/test";
@@ -23,7 +24,8 @@ function App() {
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
         <Route path="/Board/BoardForm" element={<Board />} />
         <Route path="/Board/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
-        <Route path="/Board/:id" element={<FreeBoardReadForm />} />
+        <Route path="/freeBoard/:id" element={<FreeBoardReadForm />} />
+        <Route path="/BoardUpdate/:id" element={<FreeBoardUpdateForm />} />
         <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/Login/SignupForm" element={<SignupForm />} />
         <Route path="/Test" element={<Test />} />

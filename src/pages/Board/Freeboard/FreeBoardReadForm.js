@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
+import { useParams, Routes, Route, useNavigate, Link} from 'react-router-dom';
 import axios from 'axios';
+
+import BoardForm from "../BoardForm";
+import FreeBoardUpdateForm from "./FreeBoardUpdateForm";
 
 const FreeBoardReadForm = () => {
   const { id } = useParams();
   const [freeboard, setfreeboard] = useState({});
+  const navigate=useNavigate();
+
+  function handleButtonClick(path){
+      navigate(path);
+  }
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:3002/Board/${id}`);
+        const response = await axios.get(`http://localhost:3002/freeBoard/${id}`);
         setfreeboard(response.data);
       } catch (error) {
         console.error(error);
@@ -18,6 +26,18 @@ const FreeBoardReadForm = () => {
 
     fetchPost();
   }, [id]);
+
+  const handleDelete = () => {
+    axios.delete(`http://localhost:3002/freeBoard/${id}`)
+      .then(response => {
+        // 삭제 성공 시 처리할 로직 작성
+        console.log('게시물이 삭제되었습니다.');
+      })
+      .catch(error => {
+        // 삭제 실패 시 처리할 로직 작성
+        console.error('게시물 삭제에 실패했습니다:', error);
+      });
+  };
 
   if (!freeboard) {
     return <div>Loading...{`${id}`}</div>;
@@ -31,6 +51,26 @@ const FreeBoardReadForm = () => {
       <h1>{freeboard.date}</h1>
       <h1>{freeboard.content}</h1>
       <h1>{freeboard.image}</h1>
+      {sessionStorage.getItem('username') === freeboard.author
+        ?
+        <>
+          <div>
+            <button onClick={handleDelete}>삭제</button>
+            <button><Link to={`/BoardUpdate/${freeboard.id}`}>수정</Link></button>
+            <button onClick={() => handleButtonClick("/Board/BoardForm")}>목록</button>
+            <Routes>
+              <Route path="../BoardForm" element={<BoardForm />}></Route>
+              <Route path="./FreeBoardUpdateForm" element={<FreeBoardUpdateForm />}></Route>
+            </Routes>
+          </div>
+        </>
+        :
+        <>
+          <div>
+            <button>목록</button>
+          </div>
+        </>
+      }
     </div>
   );
 };

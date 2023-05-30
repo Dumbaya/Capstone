@@ -407,7 +407,7 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
 });
 
 //자유게시글 읽기
-app.get('/Board/:id', async (req, res) => {
+app.get('/freeBoard/:id', async (req, res) => {
   const id = req.params.id;
   console.log('Received ID:', id);
   try {
@@ -436,6 +436,28 @@ app.get('/Board/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+//자유게시판 삭제
+app.delete('/freeBoard/:id', async (req, res) => {
+  const postId = req.params.id;
+  
+  try {
+    // 게시물 삭제 로직 구현
+    // 예: DB에서 해당 postId를 가진 게시물을 삭제하는 코드 작성
+    const result = await db.query('DELETE FROM freeboard WHERE id = ?', [postId]);
+    
+    if (result.affectedRows === 0) {
+      // 삭제할 게시물이 없는 경우
+      return res.status(404).json({ error: '삭제할 게시물이 없습니다.' });
+    }
+    
+    // 게시물 삭제 성공 응답
+    return res.json({ message: '게시물이 삭제되었습니다.' });
+  } catch (error) {
+    console.error('게시물 삭제에 실패했습니다:', error);
+    return res.status(500).json({ error: '게시물 삭제에 실패했습니다.' });
   }
 });
 

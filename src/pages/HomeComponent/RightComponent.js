@@ -9,7 +9,7 @@ import LoginForm from "../Login/LoginForm";
 
 function RightComponent() {
     const loginState = sessionStorage.getItem('loginState');
-    //const username = sessionStorage.getItem('username');
+    const username = sessionStorage.getItem('username');
     const navigate=useNavigate();
 
     function handleButtonClick(path){
