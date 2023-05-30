@@ -41,7 +41,13 @@ function List() {
     subOpenList(num);
   }
 
-
+  const openDays=()=>{
+    return(
+      <div className="openDays">
+        100000000000000000
+      </div>
+    );
+  }
 
   return (
     <div className="List">
@@ -50,9 +56,15 @@ function List() {
         <Submit num={isListOpen} />
         <p>{isListOpen}</p>
       </Modal>
-
+      
       <div className="modal-btn-container">
-        <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
+        <div className="btn-box">
+          <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
+          <div className="openDays">
+            10000
+          </div>
+        </div>
+
         <button className="modal-btn" onClick={() => openModal(2)}>모달 열기</button>
         <button className="modal-btn" onClick={() => openModal(3)}>모달 열기</button>
         <button className="modal-btn" onClick={() => openModal(4)}>모달 열기</button>
