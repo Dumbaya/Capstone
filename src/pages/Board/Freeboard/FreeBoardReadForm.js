@@ -67,7 +67,10 @@ const FreeBoardReadForm = () => {
         :
         <>
           <div>
-            <button>목록</button>
+            <button onClick={() => handleButtonClick("/Board/BoardForm")}>목록</button>
+            <Routes>
+              <Route path="../BoardForm" element={<BoardForm />}></Route>
+            </Routes>
           </div>
         </>
       }
