@@ -4,6 +4,7 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
+const { async } = require('q');
 const upload = multer({dest : 'public/uploads/'});
 
 const app = express();
@@ -21,8 +22,6 @@ const pool = mysql.createPool({
   password: 'hoseo12!',
   database: 'hoseo1234'
 });
-
-
 
 //로그인
 app.post('/login', async (req, res) => {
@@ -405,6 +404,39 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
     });
   }
   res.status(200).json({ success: true, message: 'Board post created successfully' });
+});
+
+//자유게시글 읽기
+app.get('/Board/:id', async (req, res) => {
+  const id = req.params.id;
+  console.log('Received ID:', id);
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query('SELECT id, title, author, date FROM free_notice_board WHERE id = ?', [id]);
+
+    if(rows.length > 0){
+      const [rows1] = await connection.query('SELECT post_id, post_content FROM board_post WHERE board_id = ?', [id]);
+
+      const [rows2] = await connection.query('SELECT image_id FROM image WHERE post_id = ?', [rows1[0].post_id]);
+
+      const freeboard = {
+        id: rows[0].id,
+        title: rows[0].title,
+        author: rows[0].author,
+        date: rows[0].date,
+        content: rows1[0].post_content,
+        image: rows2[0].image_id
+      };
+      res.json(freeboard);
+    }
+    // 조회된 게시글이 없을 경우 예외 처리
+    else{
+      return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: '서버 오류' });
+  }
 });
 
 app.listen(3002, () => {

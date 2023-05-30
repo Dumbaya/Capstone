@@ -1,13 +1,13 @@
 import React, { useState, useEffect} from "react";
 import "../../css/Board.css";
-import {Routes, Route, useNavigate} from "react-router-dom";
-import BoardWriterForm from "./BoardWriteForm";
+import {Routes, Route, useNavigate, Link} from "react-router-dom";
+import BoardWriterForm from "./Freeboard/FreeBoardWriteForm";
 import dateFormat from 'dateformat';
 
 function Board() {
     const [query, setQuery] = useState("");
-    const [freeposts, setFreePosts] = useState([]);
-    const [qaposts, setQaPosts] = useState([]);
+    const [freeboards, setFreeboards] = useState([]);
+    const [qaboards, setQaboards] = useState([]);
 
     //자유게시판 출력
     useEffect(() => {
@@ -16,9 +16,9 @@ function Board() {
     
     const freeboardfetchPosts = async () => {
         try {
-          const response = await fetch('http://localhost:3002/freeboard'); // API 엔드포인트에 맞게 경로 설정
+          const response = await fetch(`http://localhost:3002/freeboard`); // API 엔드포인트에 맞게 경로 설정
           const freedata = await response.json();
-          setFreePosts(freedata);
+          setFreeboards(freedata);
         } catch (error) {
           console.error('Error fetching posts:', error);
         }
@@ -33,7 +33,7 @@ function Board() {
         try {
           const response = await fetch('http://localhost:3002/qaboard'); // API 엔드포인트에 맞게 경로 설정
           const qadata = await response.json();
-          setQaPosts(qadata);
+          setQaboards(qadata);
         } catch (error) {
           console.error('Error fetching posts:', error);
         }
@@ -82,9 +82,9 @@ function Board() {
                     <button type="submit">검색</button>
                 </div>
                 <div className="board-write">
-                    <button type="submit" onClick={() => handleButtonClick("/Board/BoardWriteForm")}>글쓰기</button>
+                    <button type="submit" onClick={() => handleButtonClick("/Board/Freeboard/FreeBoardWriteForm")}>글쓰기</button>
                     <Routes>
-                        <Route path="/Board/BoardWriteForm" element={<BoardWriterForm />}></Route>
+                        <Route path="/Board/Freeboard/FreeBoardWriteForm" element={<BoardWriterForm />}></Route>
                     </Routes>
                 </div>
                 <div>
@@ -98,15 +98,15 @@ function Board() {
                     </tr>
                 </table>
                 <hr></hr>
-                {freeposts.map((post) => (
-                    <div key={post.id}>                       
-                        <table>
+                {freeboards.map((freeboard) => (
+                    <div>                       
+                        <table key={freeboard.id}>
                             <tr>
-                                <td>{post.id}</td>
-                                <td>{post.title}</td>
-                                <td>{post.author}</td>
-                                <td>{dateFormat(post.date, "yyyy년 mm월 dd일")}</td>
-                                <td>{post.views}</td>
+                                <td>{freeboard.id}</td>
+                                <td><Link to={`/Board/${freeboard.id}`}>{freeboard.title}</Link></td>
+                                <td>{freeboard.author}</td>
+                                <td>{dateFormat(freeboard.date, "yyyy년 mm월 dd일")}</td>
+                                <td>{freeboard.views}</td>
                             </tr>
                         </table>
                     </div>
@@ -138,16 +138,16 @@ function Board() {
                     </tr>
                 </table>
                 <hr></hr>
-                {qaposts.map((post) => (
-                    <div key={post.id}>                       
+                {qaboards.map((qaboard) => (
+                    <div key={qaboard.id}>                       
                         <table>
                             <tr>
-                                <td>{post.id}</td>
-                                <td>{post.thread_id}</td>
-                                <td>{post.author}</td>
-                                <td>{post.qa_type}</td>
-                                <td>{post.title}</td>
-                                <td>{dateFormat(post.date, "yyyy년 mm월 dd일")}</td>
+                                <td>{qaboard.id}</td>
+                                <td>{qaboard.thread_id}</td>
+                                <td>{qaboard.author}</td>
+                                <td>{qaboard.qa_type}</td>
+                                <td>{qaboard.title}</td>
+                                <td>{dateFormat(qaboard.date, "yyyy년 mm월 dd일")}</td>
                             </tr>
                         </table>
                     </div>
