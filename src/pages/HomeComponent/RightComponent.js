@@ -37,9 +37,9 @@ function RightComponent() {
                         <button className="LoginButton" onClick={handleLogout}>로그아웃</button>
                     </div>
                     <div className="MainButtons">
-                        <button className="btn" onClick={() => handleButtonClick("../List/ListForm")}>냉장고</button>
-                        <button className="btn" onClick={() => handleButtonClick("../Recipe/RecipeForm")}>레시피</button>
-                        <button className="btn" onClick={() => handleButtonClick("../Board/BoardForm")}>게시판</button>
+                        <button className="btn" onClick={() => handleButtonClick("../List/ListForm")}><img className = "buttonimg" alt = "ref" src="img/fridge.png" />냉장고</button>
+                        <button className="btn" onClick={() => handleButtonClick("../Recipe/RecipeForm")}><img className = "buttonimg" alt = "rec" src="img/recipe.png" />레시피</button>
+                        <button className="btn" onClick={() => handleButtonClick("../Board/BoardForm")}><img className = "buttonimg" alt = "boa" src="img/bulletin-board.png" />게시판</button>
                         <Routes>
                             <Route path="../Login/LoginForm" element={<LoginForm />}></Route>
                             <Route path="../Recipe/RecipeForm" element={<Recipe />}></Route>
