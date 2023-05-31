@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import "../../css/Recipe.css";
 import RecipeBox from "./RecipeBox.js"
+import RecipeInput from "./RecipeInput.js"
+
 
 function Recipe() {
     const [query, setQuery] = useState("");
+    const navigate=useNavigate();
 
     const handleQueryChange = (event) => {
         setQuery(event.target.value);
@@ -12,6 +16,10 @@ function Recipe() {
     const handleSubmit = (event) => {
         event.preventDefault();
     };
+
+    function handleButtonClick(path){
+        navigate(path);
+    }
 
     return (
         <div className="recipe_container">
@@ -27,7 +35,10 @@ function Recipe() {
                 </div>
                 <div className="recipe-contents">
                     <div className="recipe-category">
-                        카테고리
+                        <button className="recipe-input-btn" onClick={() => handleButtonClick("/Recipe/Input")}>등록</button>
+                        <Routes>
+                            <Route path="/Recipe/Input" element={<RecipeInput />}></Route>
+                        </Routes>
                     </div>
                     <div className="recipe-body">
                         <RecipeBox />
