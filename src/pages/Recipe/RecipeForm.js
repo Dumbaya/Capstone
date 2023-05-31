@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../css/Recipe.css";
+import RecipeBox from "./RecipeBox.js"
 
 function Recipe() {
     const [query, setQuery] = useState("");
@@ -28,7 +29,14 @@ function Recipe() {
                     카테고리
                 </div>
                 <div className="recipe-body">
-                    레시피 내용
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    <RecipeBox/>
+                    
                 </div>
             </form>
         </div>
