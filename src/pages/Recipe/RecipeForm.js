@@ -4,7 +4,6 @@ import "../../css/Recipe.css";
 import RecipeBox from "./RecipeBox.js"
 import RecipeInput from "./RecipeInput.js"
 
-
 function Recipe() {
     const [query, setQuery] = useState("");
     const navigate=useNavigate();
@@ -20,6 +19,14 @@ function Recipe() {
     function handleButtonClick(path){
         navigate(path);
     }
+/*
+    const recipes=()=>{//여기 지금 수정중 레시피박스 db에 있는거 출력용
+        return subCategories.map((subCategory) => (
+            <option key={subCategory.id} value={subCategory.id}>{subCategory.name}</option>
+        ));
+    }
+*/
+
 
     return (
         <div className="recipe_container">
