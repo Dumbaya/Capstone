@@ -25,19 +25,23 @@ function Recipe() {
                     </label>
                     <button type="submit">검색</button>
                 </div>
-                <div className="recipe-category">
-                    카테고리
+                <div className="recipe-contents">
+                    <div className="recipe-category">
+                        카테고리
+                    </div>
+                    <div className="recipe-body">
+                        <RecipeBox />
+                        <RecipeBox />
+                        <RecipeBox />
+                        <RecipeBox />
+                        <RecipeBox />
+                        <RecipeBox />
+                        <RecipeBox />
+
+                    </div>
                 </div>
-                <div className="recipe-body">
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    <RecipeBox/>
-                    
-                </div>
+
+
             </form>
         </div>
 

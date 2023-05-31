@@ -26,14 +26,16 @@
     margin-bottom: 20px;
 }
 
+.recipe-contents{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
 
 .recipe-body {
     /* 그리드 컨테이너 스타일 */
     display: grid;
-    border-radius: 10px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    background-color: rgb(255, 255, 255);
     justify-items: center;
     /* 수평 정렬 */
     align-items: center;
