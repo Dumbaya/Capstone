@@ -28,13 +28,12 @@ const FreeBoardReadForm = () => {
   }, [id]);
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:3002/freeBoard/${id}`)
+    axios.delete(`http://localhost:3002/freeBoardDelete/${id}`)
       .then(response => {
-        // 삭제 성공 시 처리할 로직 작성
+        window.location.href = 'http://localhost:3000/Board/BoardForm';
         console.log('게시물이 삭제되었습니다.');
       })
       .catch(error => {
-        // 삭제 실패 시 처리할 로직 작성
         console.error('게시물 삭제에 실패했습니다:', error);
       });
   };
