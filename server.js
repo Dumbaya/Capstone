@@ -458,7 +458,7 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
 //자유게시글 읽기
 app.get('/freeBoard/:id', async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  
   try {
     const connection = await pool.getConnection();
     const [rows] = await connection.query('SELECT id, title, author, date, views FROM free_notice_board WHERE id = ?', [id]);
@@ -479,6 +479,7 @@ app.get('/freeBoard/:id', async (req, res) => {
         };
 
         const views = rows[0].views + 0.5;
+        console.log(id);
 
         await connection.query('UPDATE free_notice_board SET views = ? WHERE id = ?', [views, id]);
 
@@ -499,7 +500,7 @@ app.get('/freeBoard/:id', async (req, res) => {
         const views = rows[0].views + 0.5;
 
         await connection.query('UPDATE free_notice_board SET views = ? WHERE id = ?', [views, id]);
-        
+
         res.json(freeboard);
       }
     }
