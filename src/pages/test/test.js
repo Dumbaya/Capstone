@@ -1,62 +1,24 @@
 import React, { useState } from "react";
 import "./test.css";
-
-function Modal(props) {
-  const { isOpen, onClose, children } = props;
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="modal-background" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {children}
-        <button className="modal-close" onClick={onClose}>
-          닫기
-        </button>
-      </div>
-    </div>
-  );
-}
+import { useMediaQuery } from 'react-responsive'
 
 function Test() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isListOpen, setIsListOpen] = useState(0);
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+  const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
 
-  const subOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setIsListOpen(0);
-  };
-  const subOpenList = (num) => {
-    setIsListOpen(num);
-  };
-  const openModal=(num)=>{
-    subOpenModal();
-    subOpenList(num);
-  }
-  
-  return (
-    <div className="Test">
-      <button onClick={()=>openModal(1)}>모달 열기</button>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>안녕하세요!</h2>
-        <p>{isListOpen}</p>
-      </Modal>
-
-      <div className="modal-btn-container">
-        <button className="modal-btn" onClick={()=>openModal(1)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(2)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(3)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(4)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(5)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(6)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(7)}>모달 열기</button>
-      </div>
-    </div>
-  );
+  return <div>
+    <h1>Device Test!</h1>
+    {isDesktopOrLaptop && <p>You are a desktop or laptop</p>}
+    {isBigScreen && <p>You  have a huge screen</p>}
+    {isTabletOrMobile && <p>You are a tablet or mobile phone</p>}
+    <p>Your are in {isPortrait ? 'portrait' : 'landscape'} orientation</p>
+    {isRetina && <p>You are retina</p>}
+  </div>
 }
 
 export default Test;

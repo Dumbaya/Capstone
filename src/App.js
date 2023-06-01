@@ -5,14 +5,16 @@ import './App.css';
 import Home from "./pages/Homeform";
 import List from "./pages/List/ListForm";
 import Recipe from "./pages/Recipe/RecipeForm";
+import RecipeInput from "./pages/Recipe/RecipeInput";
 import Board from "./pages/Board/BoardForm";
-import BoardWriteForm from "./pages/Board/BoardWriteForm";
+import FreeBoardWriteForm from "./pages/Board/Freeboard/FreeBoardWriteForm";
+import FreeBoardReadForm from "./pages/Board/Freeboard/FreeBoardReadForm";
+import FreeBoardUpdateForm from "./pages/Board/Freeboard/FreeBoardUpdateForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
 import Test from "./pages/test/test";
 import Left from "./pages/HomeComponent/LeftComponent"
 import Right from "./pages/HomeComponent/RightComponent"
-
 
 function App() {
   return (
@@ -21,13 +23,17 @@ function App() {
         <Route path="/" element={<Home />} />       
         <Route path="/List/ListForm" element={<List />} />
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
+        <Route path="/Recipe/Input" element={<RecipeInput />}></Route>
         <Route path="/Board/BoardForm" element={<Board />} />
-        <Route path="/Board/BoardWriteForm" element={<BoardWriteForm />} />
+        <Route path="/Board/Freeboard/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
+        <Route path="/freeBoard/:id" element={<FreeBoardReadForm />} />
+        <Route path="/BoardUpdate/:id" element={<FreeBoardUpdateForm />} />
         <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/Login/SignupForm" element={<SignupForm />} />
         <Route path="/Test" element={<Test />} />
         <Route path="/HomeComponent/left" element={<Left />} />
         <Route path="/HomeComponent/right" element={<Right />} />
+
       </Routes>
     </div>
   );

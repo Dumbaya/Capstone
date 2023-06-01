@@ -1,24 +1,29 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
-import { GoogleLogin} from 'react-google-login';
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import "../../css/Login.css";
 
 import SignupForm from "./SignupForm"; 
 
-const Login = () => {
+const firebaseConfig = {
+  apiKey: "AIzaSyCf7wOpt60WAQwg9BEFjeHzZq_6QYBfBoU",
+  authDomain: "capstone-387105.firebaseapp.com",
+  projectId: "capstone-387105",
+  storageBucket: "capstone-387105.appspot.com",
+  messagingSenderId: "774959781817",
+  appId: "1:774959781817:web:3f1a4f8e9c11643850c868",
+  measurementId: "G-4R22K2KVV4"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [accessToken, setAccessToken] = useState('');
-
-  const responseGoogle = (response) => {
-    console.log(response);
-    setAccessToken(response.accessToken);
-    if(response.accessToken){
-      sessionStorage.setItem('loginState', true);
-      window.location.href = 'http://localhost:3000/';
-      alert('성공');
-    }
-  }
 
   const navigate=useNavigate();
 
@@ -29,7 +34,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/login', {
+        const response = await axios.post('http://localhost:3002/login', {
         username: username,
         password: password
       });
@@ -47,36 +52,61 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async() => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      // 구글 로그인 팝업 띄우기     
+      const { user } = await firebase.auth().signInWithPopup(provider);
+      const username = user.displayName;
+      const password = user.displayName;
+      
+      const response = await axios.post('http://localhost:3002/googlelogin',{
+        username: username,
+        password: password
+      })
+
+      // 사용자 정보 가져오기
+      if (response.data.success) {
+        sessionStorage.setItem('username',username);
+        sessionStorage.setItem('loginState', true);
+        alert('로그인 성공');
+        window.location.href = 'http://localhost:3000/';
+      } else {
+        alert('로그인 실패');
+      }
+    } catch (error) {
+      alert('로그인 실패');
+      console.error('Error signing in with Google:', error);
+    }
+    
+  };
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='LoginForm'>
+      <div className='Login'>
+        <form onSubmit={handleSubmit}>
+          <div className='Username'>
+            <label>Username:&nbsp;</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </div>
+          <div className='PassWord'>
+            <label>Password:&nbsp;</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <button className='LoginButton' type="submit">로그인</button>
+        </form>
         <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <div className='register'>
+            <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
+            <Routes>
+              <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
+            </Routes>
+          </div>
+          <div>
+            <button onClick={handleGoogleLogin}>Sign in with Google</button>
+          </div>
         </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <button type="submit">로그인</button>
-      </form>
-      <form>
-        <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
-        <Routes>
-            <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
-        </Routes>
-        {accessToken ? (
-          <p>로그인 성공!</p>
-          ) : (
-          <GoogleLogin
-            clientId="774959781817-j2df940qcjig49lseldpi3shq2171d5a.apps.googleusercontent.com"
-            buttonText="Google 계정으로 로그인"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
-          )} 
-      </form>
+      </div>
     </div>
   );
 };
