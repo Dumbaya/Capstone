@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import {Routes, Route, useNavigate} from "react-router-dom";
 import "../../css/Recipe.css";
 import RecipeBox from "./RecipeBox.js"
@@ -6,7 +7,9 @@ import RecipeInput from "./RecipeInput.js"
 
 function Recipe() {
     const [query, setQuery] = useState("");
+    const [recipes, setRecipes] = useState([]);//데이터 여러개 그자체가 들어감
     const navigate=useNavigate();
+    
 
     const handleQueryChange = (event) => {
         setQuery(event.target.value);
@@ -19,13 +22,30 @@ function Recipe() {
     function handleButtonClick(path){
         navigate(path);
     }
-/*
-    const recipes=()=>{//여기 지금 수정중 레시피박스 db에 있는거 출력용
-        return subCategories.map((subCategory) => (
-            <option key={subCategory.id} value={subCategory.id}>{subCategory.name}</option>
+
+    //레시피 유즈이펙
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('http://localhost:3002/recipes2');
+                setRecipes(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    const renderRecipes=()=>{//여기 지금 수정중 레시피박스 db에 있는거 출력용
+        return recipes.map((recipedown) => (
+            <div>
+                <RecipeBox recipe={recipedown}/>
+            </div>
+            //<option key={subCategory.id} value={subCategory.id}>{subCategory.name}</option>
         ));
     }
-*/
+
 
 
     return (
@@ -48,14 +68,7 @@ function Recipe() {
                         </Routes>
                     </div>
                     <div className="recipe-body">
-                        <RecipeBox />
-                        <RecipeBox />
-                        <RecipeBox />
-                        <RecipeBox />
-                        <RecipeBox />
-                        <RecipeBox />
-                        <RecipeBox />
-
+                        {renderRecipes()}
                     </div>
                 </div>
 

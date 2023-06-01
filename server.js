@@ -327,6 +327,29 @@ app.post('/recipes', async (req, res) => {
   }
 });
 
+//레시피게시판 가져오기
+app.get('/recipes2', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT * FROM recipes');
+    connection.release();
+    const categories = rows.map((row) => {
+      return {
+        id: row.id,
+        name: row.name,
+        recipe_text: row.recipe_text,
+        likes: row.likes,
+        author: row.author,
+        thumbnail: row.thumbnail
+      };
+    });
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //자유게시판
 app.get('/freeboard', async (req, res) => {
   try {

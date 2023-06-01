@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import "../../css/Recipe.css";
 
-function RecipeBox() {
+function RecipeBox(props) {
 
     return (
         <div className="recipe-box">
 
             <div className="recipe-img">
-                사진
+                <img src={props.recipe.thumbnail} />
             </div>
             <div className="recipe-title">
-                제목
+                {props.recipe.name}
             </div>
             <div className="recipe-like">
-                좋아요 별
+                좋아요{props.recipe.likes}
             </div>
         </div>
 
