@@ -8,7 +8,7 @@ function LeftComponent() {
         <div className="Home">
             <div className="main">
                 <div className="main-img">
-                    로고
+                    <img scr="img/LOGO.PNG" alt='logo'/>
                 </div>
             </div>
             { !loginState 
