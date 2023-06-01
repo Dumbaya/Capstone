@@ -304,6 +304,29 @@ app.post('/user_food_resources', async (req, res) => {
   }
 });
 
+//레시피 게시판 업로드
+app.post('/recipes', async (req, res) => {
+  const { name, recipe_text, likes, author, thumbnail} = req.body;
+
+  try {
+    const connection = await pool.getConnection(); // 데이터베이스 연결 생성
+    await connection.execute(
+      'INSERT INTO recipes (name, recipe_text, likes, author, thumbnail) values (?, ?, ?, ?, ?);', [
+        name,
+        recipe_text,
+        likes,
+        author,
+        thumbnail
+    ]);
+    connection.release(); // 연결 해제
+
+    res.json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 //자유게시판
 app.get('/freeboard', async (req, res) => {
   try {

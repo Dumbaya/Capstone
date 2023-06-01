@@ -5,6 +5,7 @@ import './App.css';
 import Home from "./pages/Homeform";
 import List from "./pages/List/ListForm";
 import Recipe from "./pages/Recipe/RecipeForm";
+import RecipeInput from "./pages/Recipe/RecipeInput";
 import Board from "./pages/Board/BoardForm";
 import FreeBoardWriteForm from "./pages/Board/Freeboard/FreeBoardWriteForm";
 import FreeBoardReadForm from "./pages/Board/Freeboard/FreeBoardReadForm";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />       
         <Route path="/List/ListForm" element={<List />} />
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
+        <Route path="/Recipe/Input" element={<RecipeInput />}></Route>
         <Route path="/Board/BoardForm" element={<Board />} />
         <Route path="/Board/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
         <Route path="/freeBoard/:id" element={<FreeBoardReadForm />} />
@@ -31,6 +33,7 @@ function App() {
         <Route path="/Test" element={<Test />} />
         <Route path="/HomeComponent/left" element={<Left />} />
         <Route path="/HomeComponent/right" element={<Right />} />
+
       </Routes>
     </div>
   );
