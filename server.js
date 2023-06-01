@@ -435,9 +435,10 @@ app.post('/freeboardwrite', upload.array('images', 5), async(req, res) => {
 //자유게시글 읽기
 app.get('/freeBoard/:id', async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   try {
     const connection = await pool.getConnection();
-    const [rows] = await connection.query('SELECT id, title, author, date FROM free_notice_board WHERE id = ?', [id]);
+    const [rows] = await connection.query('SELECT id, title, author, date, views FROM free_notice_board WHERE id = ?', [id]);
 
     if(rows.length > 0){
       const [rows1] = await connection.query('SELECT post_id, post_content FROM board_post WHERE board_id = ?', [id]);
@@ -451,17 +452,31 @@ app.get('/freeBoard/:id', async (req, res) => {
           author: rows[0].author,
           date: rows[0].date,
           content: rows1[0].post_content,
-          image: rows2[0].image_id
+          image: rows2[0].image_id       
         };
+
+        const views = rows[0].views + 0.5;
+
+        await connection.query('UPDATE free_notice_board SET views = ? WHERE id = ?', [views, id]);
+
         res.json(freeboard);
       }else{
+        const [rows1] = await connection.query('SELECT post_id, post_content FROM board_post WHERE board_id = ?', [id]);
+
+        const [rows2] = await connection.query('SELECT image_id FROM image WHERE post_id = ?', [rows1[0].post_id]);
+
         const freeboard = {
           id: rows[0].id,
           title: rows[0].title,
           author: rows[0].author,
           date: rows[0].date,
-          content: rows1[0].post_content,
+          content: rows1[0].post_content
         };
+
+        const views = rows[0].views + 0.5;
+
+        await connection.query('UPDATE free_notice_board SET views = ? WHERE id = ?', [views, id]);
+        
         res.json(freeboard);
       }
     }

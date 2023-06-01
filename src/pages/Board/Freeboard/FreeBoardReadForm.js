@@ -30,7 +30,7 @@ const FreeBoardReadForm = () => {
   const handleDelete = () => {
     axios.delete(`http://localhost:3002/freeBoardDelete/${id}`)
       .then(response => {
-        window.location.href = 'http://localhost:3000/Board/BoardForm';
+        navigate('/Board/BoardForm');
         console.log('게시물이 삭제되었습니다.');
       })
       .catch(error => {
