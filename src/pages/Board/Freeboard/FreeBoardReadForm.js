@@ -15,7 +15,7 @@ const FreeBoardReadForm = () => {
   }
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchPost = async () => {//
       try {
         const response = await axios.get(`http://localhost:3002/freeBoard/${id}`);
         setfreeboard(response.data);
@@ -25,7 +25,9 @@ const FreeBoardReadForm = () => {
     };
 
     fetchPost();
-  }, [id]);
+    fetchPost();
+ 
+  }, []);
 
   const handleDelete = () => {
     axios.delete(`http://localhost:3002/freeBoardDelete/${id}`)
