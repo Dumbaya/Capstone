@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 function FreeBoardUpdateForm() {
     const { id } = useParams();
-    const [freeboard, setfreeboard] = useState({});
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [images, setImages] = useState([]);
@@ -13,9 +12,10 @@ function FreeBoardUpdateForm() {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await axios.post(`http://localhost:3002/freeBoard/${id}`);
-                setTitle(response.data.title);
-                setContent(response.data.content);
+                const response = await axios.get(`http://localhost:3002/freeBoard/${id}`);
+                const {title, content} = response.data;
+                setTitle(title);
+                setContent(content);
             } catch (error) {
                 console.error(error);
             }
@@ -24,17 +24,23 @@ function FreeBoardUpdateForm() {
         fetchPost();
     }, [id]);
 
-    if (!freeboard) {
+    if (!title) {
         return <div>Loading...{`${id}`}</div>;
     }
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+    };
+    
+    const handleContentChange = (e) => {
+        setContent(e.target.value);
+    };
 
     const handleImageChange = (e) => {
         setImages(e.target.files);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleUpdate = async (e) => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('author', author);
@@ -43,17 +49,16 @@ function FreeBoardUpdateForm() {
             formData.append('images', images[i]);
         }
         try {
-            const response = await axios.post('http://localhost:3002/freeboardUpdate', formData);
+            const response = await axios.post(`http://localhost:3002/freeBoardUpdate/${id}`, formData);
             console.log(response.data);
             if (response.data.success) {
-                window.location.href = `http://localhost:3000/freeBoardReadForm/${id}`;
-                alert('게시물 작성 완료');
+                alert('게시물 수정 완료');
             } else {
-                alert('게시물 작성 오류');
+                alert('게시물 수정 오류');
             }
         } catch (error) {
             console.error(error);
-            alert('게시물 작성 오류');
+            alert('게시물 수정 오류');
         }
     };
 
@@ -62,17 +67,17 @@ function FreeBoardUpdateForm() {
             <form>
                 <div>
                     <label>제목</label>
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <input type="text" value={title} onChange={handleTitleChange} />
                 </div>
                 <div>
                     <label>내용</label>
-                    <textarea value={content} onChange={(e) => setContent(e.target.value)}/>
+                    <textarea value={content} onChange={handleContentChange} />
                 </div>
                 <div>
                     <label>이미지</label>
                     <input type="file" multiple onChange={handleImageChange}/>
                 </div>
-                <button type="submit">글 작성</button>
+                <button onClick={handleUpdate}><Link to={`/freeBoard/${id}`}>글 수정</Link></button>
             </form>
         </div>
     );
