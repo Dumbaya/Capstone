@@ -25,7 +25,7 @@ function App() {
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
         <Route path="/Recipe/Input" element={<RecipeInput />}></Route>
         <Route path="/Board/BoardForm" element={<Board />} />
-        <Route path="/Board/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
+        <Route path="/Board/Freeboard/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
         <Route path="/freeBoard/:id" element={<FreeBoardReadForm />} />
         <Route path="/BoardUpdate/:id" element={<FreeBoardUpdateForm />} />
         <Route path="/Login/LoginForm" element={<LoginForm />} />
