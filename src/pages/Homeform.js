@@ -1,19 +1,26 @@
 import React from "react";
 import "../css/Home.css";
 
-import Componentleft from './HomeComponent/LeftComponent';
-import Componentright from './HomeComponent/RightComponent';
+import BeforeSignin from './HomeComponent/BeforeSignin';
+import AfterSignin from './HomeComponent/AfterSignin';
 
 function Home() {
+    const loginState = sessionStorage.getItem('loginState');
+
     return (
-       <div className="container">
-            <div className="leftComponent">
-                <Componentleft />
-            </div>
-            <div className="rightComponent">
-                <Componentright />
-            </div>
-       </div>
+        <div>
+            { !loginState 
+            ? 
+            <>
+                <BeforeSignin />
+            </>
+            
+            :
+            <>
+                <AfterSignin />
+            </>
+            }
+        </div>
     )
 }
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import firebase from "firebase/app";
+import 'firebase/storage';
 import "../../../css/FreeBoardWrite.css";
 
 function BoardWriteForm() {
@@ -17,7 +19,10 @@ function BoardWriteForm() {
     };
   
     const handleImageChange = (e) => {
-        setImages(e.target.files);
+        const fileList = e.target.files;
+        const fileArray = Array.from(fileList);
+
+        setImages(fileArray);
     };
   
     const handleSubmit = async (e) => {

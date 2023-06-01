@@ -25,9 +25,8 @@ const FreeBoardReadForm = () => {
     };
 
     fetchPost();
-    fetchPost();
  
-  }, []);
+  }, [id]);
 
   const handleDelete = () => {
     axios.delete(`http://localhost:3002/freeBoardDelete/${id}`)
