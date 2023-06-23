@@ -13,8 +13,11 @@ function BeforeSignin() {
     return (
         <div className="LeftHome">
             <button className="LoginButton" onClick={() => handleButtonClick("../Login/LoginForm")}>로그인</button>
-            BeforeSignin
-        </div>
+                        <div className="main-img">
+                            <img className="logo" alt = "LOGO" src="img/Mainimage.jpg" />
+                        </div>
+                    </div>
+
     )
 }
 
