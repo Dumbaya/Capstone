@@ -1,6 +1,5 @@
 import React from "react";
 import {Routes, Route, useNavigate} from "react-router-dom";
-import "../../css/HomerightComponent.css";
 
 import ListForm from "../List/ListForm";
 import Recipe from "../Recipe/RecipeForm";

@@ -1,5 +1,4 @@
 import React from "react";
-import "../../css/HomeleftComponent.css";
 
 function LeftComponent() {
     const loginState = sessionStorage.getItem('loginState');

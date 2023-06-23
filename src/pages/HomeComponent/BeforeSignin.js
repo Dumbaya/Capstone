@@ -1,6 +1,6 @@
 import React from "react";
 import {Routes, Route, useNavigate} from "react-router-dom";
-import "../../css/HomeleftComponent.css";
+import "../../css/BeforeSignin.css";
 
 function BeforeSignin() {
     const loginState = sessionStorage.getItem('loginState');
@@ -11,13 +11,20 @@ function BeforeSignin() {
     }
 
     return (
-        <div className="LeftHome">
-            <button className="LoginButton" onClick={() => handleButtonClick("../Login/LoginForm")}>로그인</button>
-                        <div className="main-img">
-                            <img className="logo" alt = "LOGO" src="img/Mainimage.jpg" />
-                        </div>
-                    </div>
-
+        <div className="Home">
+            <div className="Mainlogo">
+                <img className="logo" alt = "LOGO" src="img/image.png" />
+            </div>
+            <div className="welcome">
+                <h1 id="first">CAPSTONE DISIGN</h1>
+                <h1 id="second">My refrigerator manager</h1>
+                <hr className="welcome_hr" />
+                <h1 id="third">냉장고 파먹기</h1>
+            </div>
+            <div className="LoginButtondiv">
+                <button className="LoginButton" onClick={() => handleButtonClick("../Login/LoginForm")}>Sign in</button>
+            </div>
+        </div>
     )
 }
 

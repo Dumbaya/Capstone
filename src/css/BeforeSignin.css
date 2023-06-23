@@ -1,0 +1,63 @@
+.Home {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    flex-direction: column;
+    min-width: 320px;
+    background-image: url(D:\visualstudio\workspace\capstone\capstone-1\public\img\Mainimage.jpg);
+    background-size: cover;
+    background-position: center;
+  }
+  
+.Mainlogo{
+  margin-top:60px;
+}
+
+.logo{
+  width:153px;
+  height:153px;
+}
+
+.welcome{
+  margin-top:20px;
+}
+
+.welcome > h1{
+  color:aliceblue;
+}
+
+
+#first{
+  font-family: 'PERTILI';
+  src: url('../../public/font/PERTILI.woff') format('woff');
+}
+#second{
+  font-family: 'times';
+  src: url('../../public/font/times.woff') format('woff');
+}
+#third{
+  font-family: 'designhouseBold';
+  src: url('../../public/font/designhouseBold.woff') format('woff');
+}
+
+.welcome_hr{
+  background-color: rgb(42, 20, 139);
+  border-color: rgb(42, 20, 139);
+  width:500px;
+  height:3px;
+}
+
+.LoginButtondiv{
+  margin-top:30px;
+}
+
+.LoginButton{
+  background-color: rgb(64, 19, 170);
+  border-color: white;
+  border-radius:20px;
+  color: aliceblue;
+  font-size:30px;
+  width:350px;
+  height:70px;
+}
