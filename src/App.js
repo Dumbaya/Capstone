@@ -13,8 +13,8 @@ import FreeBoardUpdateForm from "./pages/Board/Freeboard/FreeBoardUpdateForm";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Login/SignupForm";
 import Test from "./pages/test/test";
-import Left from "./pages/HomeComponent/LeftComponent"
-import Right from "./pages/HomeComponent/RightComponent"
+import BeforeSignin from "./pages/HomeComponent/BeforeSignin"
+import AfterSignin from "./pages/HomeComponent/AfterSignin"
 
 function App() {
   return (
@@ -31,8 +31,8 @@ function App() {
         <Route path="/Login/LoginForm" element={<LoginForm />} />
         <Route path="/Login/SignupForm" element={<SignupForm />} />
         <Route path="/Test" element={<Test />} />
-        <Route path="/HomeComponent/left" element={<Left />} />
-        <Route path="/HomeComponent/right" element={<Right />} />
+        <Route path="/HomeComponent/BeforeSignin" element={<BeforeSignin />} />
+        <Route path="/HomeComponent/AfterSignin" element={<AfterSignin />} />
 
       </Routes>
     </div>

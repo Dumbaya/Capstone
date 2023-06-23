@@ -93,7 +93,7 @@ function Login() {
             <label>Password:&nbsp;</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button className='LoginButton' type="submit">로그인</button>
+          <button className='Loginbutton' type="submit">로그인</button>
         </form>
         <div>
           <div className='register'>
