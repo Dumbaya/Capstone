@@ -6,6 +6,7 @@ import Home from "./pages/Homeform";
 import List from "./pages/List/ListForm";
 import Recipe from "./pages/Recipe/RecipeForm";
 import RecipeInput from "./pages/Recipe/RecipeInput";
+import RecipeUpdate from "./pages/Recipe/RecipeUpdate";
 import Board from "./pages/Board/BoardForm";
 import FreeBoardWriteForm from "./pages/Board/Freeboard/FreeBoardWriteForm";
 import FreeBoardReadForm from "./pages/Board/Freeboard/FreeBoardReadForm";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/List/ListForm" element={<List />} />
         <Route path="/Recipe/RecipeForm" element={<Recipe />} />
         <Route path="/Recipe/Input" element={<RecipeInput />}></Route>
+        <Route path="/Recipe/Update" element={<RecipeUpdate />}></Route>
         <Route path="/Board/BoardForm" element={<Board />} />
         <Route path="/Board/Freeboard/FreeBoardWriteForm" element={<FreeBoardWriteForm />} />
         <Route path="/freeBoard/:id" element={<FreeBoardReadForm />} />
