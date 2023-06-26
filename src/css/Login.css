@@ -47,28 +47,81 @@ input{
 }
 
 .Loginbutton{
-    margin-top:10px;
+    margin-top:20px;
+    width:200px;
+    height:30px;
+    border-radius:10px;
+    background-color:rgb(39, 228, 124);
+    border-color:rgb(39, 228, 124);
+    color:aliceblue;
+    font-size:20px;
 }
 
 .text-with-line {
-    display: flex;
-    align-items: center;
-  }
-  
-  .line {
-    flex-grow: 1;
-    height: 1px;
-    background-color: black;
-  }
-  
-  .text {
-    margin: 0 10px;
-  }
-
-.register{
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    color: white;
     margin-top:10px;
 }
+  
+.line-left {
+    position: absolute;
+    left: -40;
+    right: 1;
+    top: 50%;
+    width:70px;
+    height: 1px;
+    background-color: white;
+    transform: translateX(-100%);
+}
 
-.google-login{
+.line-right {
+    position: absolute;
+    left: 10;
+    right: -100;
+    top: 50%;
+    width:70px;
+    height: 1px;
+    background-color: white;
+    transform: translateX(0%);
+}
+  
+.text {
+    position:relative;
+    margin: 0 10px;
+}
+
+.Googlelogin{
     margin-top:20px;
+}
+
+.Googleloginb{
+    width:200px;
+    height:30px;
+    font-size: 14px;
+    text-align:center;
+    justify-content: center;
+    border-radius: 10px;
+    border-color: blue;
+    background-color: blue;
+    color:aliceblue;
+}
+
+.googleimg{
+    width:20px;
+    height:20px;
+}
+
+.register{
+    margin-top:20px;
+}
+
+.registerb{
+    width:200px;
+    height:30px;
+    border-radius: 10px;
+    border-color:green;
+    background-color: green;
+    font-size:14px;
 }

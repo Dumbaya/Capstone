@@ -99,19 +99,19 @@ function Login() {
           <button className='Loginbutton' type="submit">로그인</button>
         </form>
         <div class="text-with-line">
-  <span class="line"></span>
-  <span class="text">텍스트</span>
-  <span class="line"></span>
-</div>
+          <span class="line-left"></span>
+          <span class="text">OR</span>
+          <span class="line-right"></span>
+        </div>
         <div>
+          <div className='Googlelogin'>
+            <button className="Googleloginb" onClick={handleGoogleLogin}><img className="googleimg" alt = "googleicon" src="../../img/googleicon.png" />&nbsp;Sign in with Google</button>
+          </div>
           <div className='register'>
-            <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
+            <button className='registerb' type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>Sign Up</button>
             <Routes>
               <Route path="/Login/SignupForm" element={<SignupForm />}></Route>
             </Routes>
-          </div>
-          <div>
-            <button onClick={handleGoogleLogin}>Sign in with Google</button>
           </div>
         </div>
       </div>
