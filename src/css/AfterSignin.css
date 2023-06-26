@@ -1,0 +1,34 @@
+.AfterSigninform {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  height: 100vh;
+  flex-direction: column;
+  min-width: 320px;
+  background-image: url(D:\visualstudio\workspace\capstone\capstone-1\public\img\Mainimage.jpg);
+  background-size: cover;
+  background-position: center;
+}
+  
+.top_bar{
+  display:flex;
+}
+
+.main_img{
+  flex:1;
+}
+
+.main_title{
+  flex:1;
+}
+
+.logoutbutton{
+  flex:1;
+}
+
+.top_bar_line{
+  background-color: blue;
+  border-color: blue;
+  width:100%;
+  height:1px;
+}
