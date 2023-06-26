@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url(D:\visualstudio\workspace\capstone\capstone-1\public\img\Mainimage.jpg);
+    background-image: url("../../public/img/Mainimage.jpg");
     background-size: cover;
     background-position: center;
 }
