@@ -83,18 +83,26 @@ function Login() {
 
   return (
     <div className='LoginForm'>
+      <div className='title'>
+        Sign in
+      </div>
       <div className='Login'>
         <form onSubmit={handleSubmit}>
           <div className='Username'>
-            <label>Username:&nbsp;</label>
+            <label><img className="Loginimg" alt = "LoginId" src="../../img/loginid.png" />&nbsp;</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div className='PassWord'>
-            <label>Password:&nbsp;</label>
+            <label><img className="Loginimg" alt = "LoginId" src="../../img/loginPass.png" />&nbsp;</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <button className='Loginbutton' type="submit">로그인</button>
         </form>
+        <div class="text-with-line">
+  <span class="line"></span>
+  <span class="text">텍스트</span>
+  <span class="line"></span>
+</div>
         <div>
           <div className='register'>
             <button type="submit" onClick={() => handleButtonClick("/Login/SignupForm")}>회원가입</button>
