@@ -350,7 +350,36 @@ app.get('/recipes2', async (req, res) => {
   }
 });
 
-//레시피게시판 수정
+//레시피게시판 수정전 정보가져오기
+app.get('/recipes3/:id', async (req, res) => {
+  const recipeId = req.params.id;
+
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.execute('SELECT * FROM recipes WHERE id = ?', [recipeId]);
+    connection.release();
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Recipe not found' });
+    }
+
+    const recipe = {
+      id: rows[0].id,
+      name: rows[0].name,
+      recipe_text: rows[0].recipe_text,
+      likes: rows[0].likes,
+      author: rows[0].author,
+      thumbnail: rows[0].thumbnail
+    };
+
+    res.json(recipe);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//레시피게시판 수정(보류중)
 app.post('/freeBoardUpdate/:id', upload.array('images', 5), async(req, res) => {
   const connection = await pool.getConnection();
   const id = req.params.id;
@@ -453,48 +482,18 @@ app.post('/freeBoardUpdate/:id', upload.array('images', 5), async(req, res) => {
 });
 
 //레시피게시판 삭제
-app.delete('/freeBoardDelete/:id', async (req, res) => {
+app.delete('/recipesDelete/:id', async (req, res) => {
   const id = req.params.id;
   const connection = await pool.getConnection();
-  
+  console.log(id);
+
   try {
-    const [rows1] = await connection.query(
-      'SELECT post_id FROM board_post WHERE board_id = ?;', [id]
-    );
-
-    const post_id = rows1[0].post_id;
-
-    const [rows2] = await connection.query(
-      'SELECT image_id FROM image WHERE post_id = ?;', [post_id]
-    );
-
-    if(rows2.length > 0){
-      const image_id = rows2[0].image_id;
-
-      const resultimage = await connection.query('DELETE FROM image WHERE image_id = ?', [image_id]);
-
-      const resultcontent = await connection.query('DELETE FROM board_post WHERE post_id = ?', [post_id]);
-      console.log(post_id);
-
-      const resultboard = await connection.query('DELETE FROM free_notice_board WHERE id = ?', [id]);
+    const resultboard = await connection.query('DELETE FROM recipes WHERE id = ?', [id]);
 
       if (resultboard.affectedRows === 0 ) {
         // 삭제할 게시물이 없는 경우
         return res.status(404).json({ error: '삭제할 게시물이 없습니다.' });
       }
-    }else{
-      console.log('image X');
-
-      const resultcontent = await connection.query('DELETE FROM board_post WHERE post_id = ?', [post_id]);
-
-      const resultboard = await connection.query('DELETE FROM free_notice_board WHERE id = ?', [id]);
-
-      if (resultboard.affectedRows === 0 ) {
-        // 삭제할 게시물이 없는 경우
-        return res.status(404).json({ error: '삭제할 게시물이 없습니다.' });
-      }
-    }
-
     // 게시물 삭제 성공 응답
     return res.json({ message: '게시물이 삭제되었습니다.' });
   } catch (error) {

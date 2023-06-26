@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import "../../css/Recipe.css";
 
@@ -45,16 +46,17 @@ const Sample = () => {
 };
 
 function RecipeInput() {
+  const navigate=useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    
 
     formData.append('likes', 0);
     formData.append('author', sessionStorage.getItem('username'));
-    formData.append('thumbnail', "asdf");
     
-
     const formValues = Object.fromEntries(formData.entries());
 
     try {
@@ -69,6 +71,7 @@ function RecipeInput() {
       } else {
         alert('등록 실패');
       }
+      navigate('../Recipe/RecipeForm');
     } catch (error) {
       console.error('폼 제출 오류', error);
     }
@@ -77,8 +80,8 @@ function RecipeInput() {
   return (
     <div className="recipe-input">
       <form className="input-form" onSubmit={handleSubmit}>
-        레시피 등록
         <div className="input-contents">
+        레시피 등록
           <div className="input-name">
             레시피 제목
             <input type="text" name="name"></input>
@@ -90,6 +93,7 @@ function RecipeInput() {
           <div className="input-text">
             레시피 내용
             <Sample />
+            <input type="text" name="thumbnail"></input>
           </div>
         </div>
         <button type="submit">등록</button>
