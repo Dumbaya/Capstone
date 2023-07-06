@@ -1,11 +1,127 @@
-.login-form{
+.login-logo{
+    margin-bottom: 30px;
+}
+
+.LoginForm{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+    flex-direction: column;
+    min-width: 320px;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../public/img/Mainimage.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.title{
+    text-align: left;
+    font-size: 30px;
+    color: white;
+}
+
+.Login{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    width:700px;
+    height:300px;
 }
 
-.login-logo{
-    margin-bottom: 30px;
+.Loginimg{
+    width:20px;
+    height:20px;
+}
+
+.PassWord{
+    margin-top:10px;
+}
+
+input{
+    background-color: transparent;
+    border-color:transparent;
+    border-bottom-color:aliceblue;
+}
+
+.Loginbutton{
+    margin-top:20px;
+    width:200px;
+    height:30px;
+    border-radius:10px;
+    background-color:rgb(39, 228, 124);
+    border-color:rgb(39, 228, 124);
+    color:aliceblue;
+    font-size:20px;
+}
+
+.text-with-line {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    margin-top:10px;
+}
+  
+.line-left {
+    position: absolute;
+    left: -40;
+    right: 1;
+    top: 50%;
+    width:70px;
+    height: 1px;
+    background-color: white;
+    transform: translateX(-100%);
+}
+
+.line-right {
+    position: absolute;
+    left: 10;
+    right: -100;
+    top: 50%;
+    width:70px;
+    height: 1px;
+    background-color: white;
+    transform: translateX(0%);
+}
+  
+.text {
+    position:relative;
+    margin: 0 10px;
+}
+
+.Googlelogin{
+    margin-top:20px;
+}
+
+.Googleloginb{
+    width:200px;
+    height:30px;
+    font-size: 14px;
+    text-align:center;
+    justify-content: center;
+    border-radius: 10px;
+    border-color: blue;
+    background-color: blue;
+    color:aliceblue;
+}
+
+.googleimg{
+    width:20px;
+    height:20px;
+}
+
+.register{
+    margin-top:20px;
+}
+
+.registerb{
+    width:200px;
+    height:30px;
+    border-radius: 10px;
+    border-color:green;
+    background-color: green;
+    font-size:14px;
 }

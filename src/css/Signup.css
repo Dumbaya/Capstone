@@ -1,0 +1,32 @@
+.SignupForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../public/img/Mainimage.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.Signup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top:250px;
+    background-color: antiquewhite;
+    width:700px;
+    height:300px;
+}
+
+.PassWord{
+    margin-top:20px;
+}
+
+.Email{
+    margin-top:20px;
+}
+
+.RegisterButton{
+    margin-top:20px;
+}
