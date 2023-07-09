@@ -21,16 +21,10 @@ function Modal(props) {
 }
 
 function List() {
-<<<<<<< HEAD
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isListOpen, setIsListOpen] = useState(0);
-
-=======
   // 모달 오픈을 위한 유즈스테이트
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(0);
   //
->>>>>>> f6ebbdcbd6360a5387e98739a0d87a0aa1c0764c
   const subOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -42,34 +36,11 @@ function List() {
   const subOpenList = (num) => {
     setIsListOpen(num);
   };
-<<<<<<< HEAD
-  const openModal=(num)=>{
-=======
   const openModal = (num) => {
->>>>>>> f6ebbdcbd6360a5387e98739a0d87a0aa1c0764c
     subOpenModal();
     subOpenList(num);
   }
 
-<<<<<<< HEAD
-
-  return (
-    <div className="List">
-      <button onClick={()=>openModal(1)}>모달 열기</button>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>안녕하세요!</h2>
-        <p>{isListOpen}</p>
-      </Modal>
-
-      <div className="modal-btn-container">
-        <button className="modal-btn" onClick={()=>openModal(1)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(2)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(3)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(4)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(5)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(6)}>모달 열기</button>
-        <button className="modal-btn" onClick={()=>openModal(7)}>모달 열기</button>
-=======
   const openDays=()=>{
     return(
       <div className="openDays">
@@ -105,14 +76,9 @@ function List() {
         <button className="modal-btn" onClick={() => openModal(10)}>모달 열기</button>
         <button className="modal-btn" onClick={() => openModal(11)}>모달 열기</button>
         <button className="modal-btn" onClick={() => openModal(12)}>모달 열기</button>
->>>>>>> f6ebbdcbd6360a5387e98739a0d87a0aa1c0764c
       </div>
     </div>
   );
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f6ebbdcbd6360a5387e98739a0d87a0aa1c0764c
 export default List;
