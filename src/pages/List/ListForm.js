@@ -17,6 +17,7 @@ function Modal(props) {
         </button>
       </div>
     </div>
+    
   );
 }
 
