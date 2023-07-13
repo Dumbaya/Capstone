@@ -71,11 +71,15 @@ function RecipeUpdate(props) {
           </div>
           <div className="input-text">
             레시피 내용
-            <input type="text" name="recipe_text"></input>
+            <input type="text" name="recipe_text" value={recipes.recipe_text || ''}></input>
           </div>
           <div className="input-text">
             레시피 내용
 
+          </div>
+          <div className="input-thumbnail">
+            썸네일
+            <input type="text" name="thumbnail" value={recipes.thumbnail || ''}></input>
           </div>
         </div>
         <button type="submit">등록</button>
