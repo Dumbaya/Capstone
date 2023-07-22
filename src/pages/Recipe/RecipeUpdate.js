@@ -17,32 +17,32 @@ function RecipeUpdate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
-
-
-    formData.append('likes', 0);
+  
+    formData.append('likes', recipes.likes);
     formData.append('author', sessionStorage.getItem('username'));
-    formData.append('thumbnail', "asdf");
-
+  
     const formValues = Object.fromEntries(formData.entries());
-
+    
     try {
+      
       const response = await axios.post(
-        'http://localhost:3002/recipes',
+        `http://localhost:3002/recipesUpdate/${id}`,
         formValues
       );
-
+      alert('게시물 수정 완료');
       // 서버 응답 처리
-      if (response.status === 200) {
-        alert('등록 성공');
+      console.log(response.data);
+      if (response.data.success) {
+        alert('게시물 수정 완료');
       } else {
-        alert('등록 실패');
+        alert('게시물 수정 오류');
       }
-      navigate('../Recipe/RecipeForm');
+      
     } catch (error) {
-      console.error('폼 제출 오류', error);
+      console.error(error);
     }
+    navigate('../Recipe/RecipeForm');
   };
 
   // id로 레시피 하나만 가져오는 유즈이펙트
@@ -67,11 +67,11 @@ function RecipeUpdate(props) {
         <div className="input-contents">
           <div className="input-name">
             레시피 제목{id}
-            <input type="text" name="name" value={recipes.name || ''}></input>
+            <input type="text" name="name" defaultValue={recipes.name || ''}></input>
           </div>
           <div className="input-text">
             레시피 내용
-            <input type="text" name="recipe_text" value={recipes.recipe_text || ''}></input>
+            <input type="text" name="recipe_text" defaultValue={recipes.recipe_text || ''}></input>
           </div>
           <div className="input-text">
             레시피 내용
@@ -79,10 +79,10 @@ function RecipeUpdate(props) {
           </div>
           <div className="input-thumbnail">
             썸네일
-            <input type="text" name="thumbnail" value={recipes.thumbnail || ''}></input>
+            <input type="text" name="thumbnail" defaultValue={recipes.thumbnail || ''}></input>
           </div>
         </div>
-        <button type="submit">등록</button>
+        <button type="submit">수정</button>
       </form>
 
     </div>

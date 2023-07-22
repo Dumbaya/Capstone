@@ -377,109 +377,38 @@ app.get('/recipes3/:id', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
+
 });
 
-//레시피게시판 수정(보류중)
-app.post('/freeBoardUpdate/:id', upload.array('images', 5), async(req, res) => {
-  const connection = await pool.getConnection();
+// 레시피게시판 수정
+app.post('/recipesUpdate/:id', async (req, res) => {
   const id = req.params.id;
-  const post_content = req.body.content;
-  const images = req.files;
-  const title = req.body.title;
+  const name = req.body.name;
+  const recipe_text = req.body.recipe_text;
+  const thumbnail = req.body.thumbnail;
 
-  const [rows1] = await connection.query(
-    'SELECT post_id FROM board_post WHERE board_id = ?;', [id]
-  );
+  try {
+    const connection = await pool.getConnection();
 
-  const post_id = rows1[0].post_id;
+    // Content 업데이트 (프로미스 사용)
+    const [result] = await connection.execute(
+      'UPDATE recipes SET name = ?, recipe_text = ?, thumbnail = ? WHERE id = ?',
+      [name, recipe_text, thumbnail, id]
+    );
 
-  const [rows2] = await connection.query(
-    'SELECT image_id FROM image WHERE post_id = ?;', [post_id]
-  );
-  
-  if(rows2.length > 0){
-    const image_id = rows2[0].image_id;
+    connection.release();
 
-    //Image 업데이트
-    const imageUrls = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i];
-      const imageUrl = `public/uploads/${image.filename}`;
-
-      // 이미지 파일 경로를 데이터베이스에 저장
-      await connection.query('UPDATE image SET image_path = ? WHERE image_id = ?', [imageUrl, image_id], (error, results) => {
-        if (error) {
-          console.error('Error inserting image:', error);
-          res.status(500).json({ success: false, message: 'Failed to insert image' });
-         return;
-        }
-  
-        res.status(200).json({ success: true, message: 'Board post update successfully' });
-      });
+    if (result.affectedRows === 0) {
+      res.status(404).json({ success: false, message: 'Recipe not found' });
+    } else {
+      res.status(200).json({ success: true, message: 'Recipe updated successfully' });
     }
-
-    //Content 업데이트
-    await connection.query('UPDATE board_post SET post_content = ? WHERE post_id = ?', [post_content, post_id], (error, results) => {
-      if (error) {
-        console.error('Error inserting content:', error);
-        res.status(500).json({ success: false, message: 'Failed to insert content' });
-        return;
-      }else{
-        res.status(200).json({ success: true, message: 'Board post update successfully' });
-      }
-    })
-
-    //Title 업데이트
-    await connection.query('UPDATE free_notice_board SET title = ? WHERE id = ?', [title, id]);
-
-    res.status(200).json({ success: true, message: 'Board post update successfully' });
-
-  }else{
-    const imageUrls = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i];
-      const imageUrl = 'public/uploads/${image.filename}';
-
-      const [rows2] = await connection.query(
-      'SELECT image_id FROM image ORDER BY image_id DESC LIMIT 1;'
-      );
-    
-      let image_id = 0;
-      if (rows2.length > 0) {
-        image_id = rows2[0].image_id + 1;
-      }
-  
-      // 이미지 파일 경로를 데이터베이스에 저장
-      await connection.query('INSERT INTO image (image_id, post_id, image_path) VALUES (?, ?, ?)', [image_id, post_id, imageUrl], (error, results) => {
-        if (error) {
-          console.error('Error inserting image:', error);
-          res.status(500).json({ success: false, message: 'Failed to insert image' });
-          return;
-      }
-  
-      res.status(200).json({ success: true, message: 'Board post created successfully' });
-      });
-
-      //Content 업데이트
-      await connection.query('UPDATE board_post SET post_content = ? WHERE post_id = ?', [post_content, post_id], (error, results) => {
-        if (error) {
-          console.error('Error inserting content:', error);
-          res.status(500).json({ success: false, message: 'Failed to insert content' });
-          return;
-        }else{
-        res.status(200).json({ success: true, message: 'Board post update successfully' });
-      }
-    })
-
-    //Title 업데이트
-    await connection.query('UPDATE free_notice_board SET title = ? WHERE id = ?', [title, id]);
-
-    res.status(200).json({ success: true, message: 'Board post update successfully' });
-    }
+  } catch (error) {
+    console.error('Error updating recipe:', error);
+    res.status(500).json({ success: false, message: 'Failed to update recipe' });
   }
 });
+
 
 //레시피게시판 삭제
 app.delete('/recipesDelete/:id', async (req, res) => {
