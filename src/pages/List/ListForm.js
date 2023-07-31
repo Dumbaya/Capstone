@@ -3,6 +3,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../css/List.css";
 import Submit from "./Submit";
 
+import Head from '../HeadContainer';
+
 function Modal(props) {
   const { isOpen, onClose, children } = props;
 
@@ -51,32 +53,35 @@ function List() {
   }
 
   return (
-    <div className="List">
-      <button onClick={() => openModal(1)}>모달 열기</button>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <Submit num={isListOpen} />
-        <p>{isListOpen}</p>
-      </Modal>
-      
-      <div className="modal-btn-container">
-        <div className="btn-box">
-          <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
-          <div className="openDays">
-            10000
+    <div className="List_container">
+      <Head/>
+      <div className="List">
+        <button onClick={() => openModal(1)}>모달 열기</button>
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <Submit num={isListOpen} />
+          <p>{isListOpen}</p>
+        </Modal>
+        
+        <div className="modal-btn-container">
+          <div className="btn-box">
+            <button className="modal-btn" onClick={() => openModal(1)}>모달 열기</button>
+            <div className="openDays">
+              10000
+            </div>
           </div>
-        </div>
 
-        <button className="modal-btn" onClick={() => openModal(2)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(3)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(4)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(5)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(6)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(7)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(8)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(9)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(10)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(11)}>모달 열기</button>
-        <button className="modal-btn" onClick={() => openModal(12)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(2)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(3)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(4)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(5)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(6)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(7)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(8)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(9)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(10)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(11)}>모달 열기</button>
+          <button className="modal-btn" onClick={() => openModal(12)}>모달 열기</button>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import RecipeInput from "./RecipeInput.js"
 import RecipePage from "./RecipePage.js"
 import RecipeUpdate from "./RecipeUpdate.js"
 
+import Head from '../HeadContainer';
+
 function Recipe() {
     const [query, setQuery] = useState("");
     const [recipes, setRecipes] = useState([]);//데이터 여러개 그자체가 들어감
@@ -129,10 +131,8 @@ function Recipe() {
 
     return (
         <div className="recipe_container">
+            <Head/>
             <form className="recipe">
-                <div className="recipe-logo">
-                    로고
-                </div>
                 <div className="recipe-search" onSubmit={handleSubmit}>
                     <label>
                         <input type="text" value={query} onChange={handleQueryChange} />

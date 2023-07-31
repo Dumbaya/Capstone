@@ -71,30 +71,38 @@ function SignUpForm() {
 
   return (
     <div className='SignupForm'>
+      <div className='title'>
+        Sign Up
+      </div>
       <div className='Signup'>
         <div className='Username'>
           <label>
-            Username:&nbsp;
-            <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+            <img className="Signupimg" alt = "LoginId" src="../../img/loginid.png" />&nbsp;
+            <input className='signupinput' typetype="text" value={username} onChange={e => setUsername(e.target.value)} />
           </label>
         </div>
         <div className='PassWord'>
           <label>
-            Password:&nbsp;
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <img className="Signupimg" alt = "LoginId" src="../../img/loginPass.png" />&nbsp;
+            <input className='signupinput' type="password" value={password} onChange={e => setPassword(e.target.value)} />
           </label>
         </div>
         <div className='Email'>
           <label>
-            Email:&nbsp;
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+            <img className="Signupimg" alt = "LoginId" src="../../img/signupemail.png" />&nbsp;
+            <input className='signupinput' type="text" value={email} onChange={e => setEmail(e.target.value)} />
           </label>
         </div>
-        <div className='RegisterButton'>
-          <button type="button" onClick={handleSignup}>회원가입</button>
-        </div> 
+        <div>
+          <button className='RegisterButton' type="button" onClick={handleSignup}>Sign Up</button>
+        </div>
+        <div class="text-with-line">
+          <span class="line-left"></span>
+          <span class="text">OR</span>
+          <span class="line-right"></span>
+        </div>
+        <button className='googleSignupb' onClick={handleGoogleSignup}><img className="googleimg" alt = "googleicon" src="../../img/googleicon.png" />&nbsp;Sign Up with Google</button>
       </div>
-      <button onClick={handleGoogleSignup}>구글 로그인으로 회원가입</button>
     </div>
   );
 }

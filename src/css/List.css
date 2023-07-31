@@ -28,6 +28,14 @@
     cursor: pointer;
   }
   
+  .List_container{
+    height: 100vh;
+    min-width: 320px;
+    background-image: url("../../public/img/Mainimage.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
   .List {
     display: flex;
     flex-direction: column;

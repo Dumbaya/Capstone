@@ -1,10 +1,20 @@
-.board-container {
+.board_container{
+  height: 100vh;
+  min-width: 320px;
+  background-image: url("../../public/img/Mainimage.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.boardc{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-top: 50px;
-  }
+    
+}
+
 .board-logo{
   margin-bottom: 30px;
 }

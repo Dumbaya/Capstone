@@ -9,26 +9,75 @@
   background-size: cover;
   background-position: center;
 }
+
+.Logoutbutton{
+  width:100px;
+  height:30px;
+  border-radius: 10px;
+  border-color: blueviolet;
+  background-color: blueviolet;
+  color:aliceblue;
+  margin-left: auto;
+  transform: translateY(-400%);
+}
   
-.top_bar{
+.Mainlogo{
+  margin-top:60px;
+  display: flex;
+  align-items: center;
+}
+
+.logo{
+  width:153px;
+  height:153px;
+  margin-left: 680px;
+}
+
+.welcome{
+  margin-top:20px;
+}
+
+.welcome > h1{
+  color:aliceblue;
+}
+
+#first{
+  font-family: 'PERTILI';
+  src: url('../../public/font/PERTILI.woff') format('woff');
+}
+#second{
+  font-family: 'times';
+  src: url('../../public/font/times.woff') format('woff');
+}
+#third{
+  font-family: 'designhouseBold';
+  src: url('../../public/font/designhouseBold.woff') format('woff');
+}
+
+.welcome_hr{
+  background-color: rgb(42, 20, 139);
+  border-color: rgb(42, 20, 139);
+  width:500px;
+  height:3px;
+}
+
+.Homebutton{
+  margin-top:50px;
   display:flex;
+  justify-content: center;
 }
 
-.main_img{
-  flex:1;
+.Homebutton button{
+  margin-right: 10px;
+  width:150px;
+  height:30px;
+  color:antiquewhite;
+  background-color: blueviolet;
+  border-color:blueviolet;
+  border-radius: 10px;
 }
 
-.main_title{
-  flex:1;
-}
-
-.logoutbutton{
-  flex:1;
-}
-
-.top_bar_line{
-  background-color: blue;
-  border-color: blue;
-  width:100%;
-  height:1px;
+.buttonimg{
+  width:20px;
+  height:20px;
 }

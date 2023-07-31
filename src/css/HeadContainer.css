@@ -1,0 +1,39 @@
+.headall{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    flex-direction: column;
+    min-width: 320px;
+}
+
+.headlogo{
+    width:20px;
+    height:20px;
+    transform: translateX(-3500%);
+}
+
+.userinformationb{
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border-color: blueviolet;
+    background-color: blueviolet;
+    color:aliceblue;
+    margin-left: auto;
+    transform: translateX(690%);
+}
+
+.headbuttonimg{
+    width:20px;
+    height:20px;
+}
+
+.secondheadLine{
+    display: grid; /* CSS Grid 사용 */
+    grid-template-columns: 1fr 1fr 1fr; /* 3개의 컬럼을 동일한 크기로 설정 */
+    width: 100%;
+}
+
+.headb{
+    width: 100%;
+}
